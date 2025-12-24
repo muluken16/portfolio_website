@@ -1513,11 +1513,25 @@ const Portfolio = () => {
             </p>
             
             <div style={styles.heroDescription}>
-              Computer Science graduate from Wolkite University (BSc, 2023; CGPA 3.35) with a strong interest in building practical software solutions. Experienced in developing web and cross-platform mobile applications using React Native and Flutter, with solid skills in Python, JavaScript, PHP, and SQL. Comfortable working with MySQL and SQL Server, front-end technologies, and modern development tools. A fast learner and problem solver who enjoys turning ideas into reliable applications and contributing to collaborative, forward-thinking development teams.
+              Computer Science graduate from Wolkite University (BSc, 2023; CGPA 3.35) with a strong passion for building practical software solutions. Experienced in developing web and cross-platform mobile applications using React Native and Flutter, with solid skills in Python, JavaScript, PHP, and SQL. Comfortable working with MySQL and SQL Server, front-end technologies, and modern development tools. A fast learner and problem solver who enjoys turning ideas into reliable applications and contributing to collaborative, forward-thinking development teams.
             </div>
             
             <div style={styles.heroAssumption}>
               <strong>Career Objective:</strong> Seeking opportunities to leverage my technical skills and fresh perspective as a recent graduate to contribute to innovative software development projects, while continuing to grow as a full-stack developer in a dynamic, technology-driven environment.
+            </div>
+
+            {/* Key Skills Preview */}
+            <div style={styles.heroSkillsPreview}>
+              <h4 style={styles.heroSkillsTitle}>Core Technologies</h4>
+              <div style={styles.heroSkillsTags}>
+                {topSkills.slice(0, 4).map((skill, index) => (
+                  <div key={index} style={{...styles.heroSkillTag, backgroundColor: skill.color + '20', color: skill.color}}>
+                    <span style={styles.heroSkillIcon}>{skill.icon}</span>
+                    <span>{skill.name}</span>
+                    <span style={styles.heroSkillLevel}>{skill.level}%</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div style={styles.personalStats}>
@@ -1550,43 +1564,7 @@ const Portfolio = () => {
               </button>
             </div>
 
-            {/* Follow Me Section */}
-            <div style={styles.followMeSection}>
-              <h3 style={styles.followMeTitle}>Follow Me</h3>
-              <p style={styles.followMeSubtitle}>Stay connected and follow my journey</p>
-              <div style={styles.followMeSocial}>
-                <a 
-                  href="https://www.linkedin.com/in/mule16" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{...styles.followMeLink, backgroundColor: '#0077B5'}}
-                  className="follow-me-link"
-                >
-                  <Linkedin size={20} />
-                  <span>LinkedIn</span>
-                </a>
-                <a 
-                  href="https://x.com/mulukencs16" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{...styles.followMeLink, backgroundColor: '#1DA1F2'}}
-                  className="follow-me-link"
-                >
-                  <Twitter size={20} />
-                  <span>Twitter/X</span>
-                </a>
-                <a 
-                  href="https://github.com/muluken16" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{...styles.followMeLink, backgroundColor: '#333'}}
-                  className="follow-me-link"
-                >
-                  <Github size={20} />
-                  <span>GitHub</span>
-                </a>
-              </div>
-            </div>
+
 
             <div style={styles.heroSocial}>
               {socialLinks.slice(3).map((social, index) => (
@@ -1704,6 +1682,29 @@ const Portfolio = () => {
                 </p>
               </div>
 
+              {/* Professional Values */}
+              <div style={styles.aboutValues}>
+                <h4 style={styles.aboutValuesTitle}>Professional Values</h4>
+                <div style={styles.aboutValuesList}>
+                  <div style={styles.aboutValue}>
+                    <Target size={16} color="#3b82f6" />
+                    <span>Quality-focused development</span>
+                  </div>
+                  <div style={styles.aboutValue}>
+                    <Users size={16} color="#10b981" />
+                    <span>Collaborative teamwork</span>
+                  </div>
+                  <div style={styles.aboutValue}>
+                    <Lightbulb size={16} color="#f59e0b" />
+                    <span>Continuous learning</span>
+                  </div>
+                  <div style={styles.aboutValue}>
+                    <Rocket size={16} color="#ef4444" />
+                    <span>Innovation-driven solutions</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Key Highlights */}
               <div style={styles.aboutHighlights}>
                 <h4 style={styles.aboutHighlightsTitle}>Key Highlights</h4>
@@ -1739,23 +1740,7 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Call to Action */}
-              <div style={styles.aboutCTA}>
-                <button 
-                  onClick={() => scrollToSection('contact')} 
-                  style={styles.aboutCTAButton}
-                >
-                  <Mail size={18} />
-                  Let's Work Together
-                </button>
-                <button 
-                  onClick={() => scrollToSection('projects')} 
-                  style={styles.aboutCTASecondary}
-                >
-                  <Eye size={18} />
-                  View My Work
-                </button>
-              </div>
+
             </div>
           </div>
         </div>
@@ -1920,67 +1905,6 @@ const Portfolio = () => {
             </div>
           )}
 
-          {/* Portfolio Download Section */}
-          <div style={styles.portfolioDownload}>
-            <h3 style={styles.portfolioDownloadTitle}>📄 Portfolio & Resume</h3>
-            <p style={styles.portfolioDownloadDesc}>
-              Download my complete portfolio and resume for detailed information about my projects and experience.
-            </p>
-            
-            <div style={styles.portfolioDownloadGrid}>
-              <div style={styles.portfolioDownloadCard} className="portfolio-download-card">
-                <div style={styles.portfolioDownloadIcon}>
-                  <FileText size={32} color="#E63946" />
-                </div>
-                <h4>Portfolio PDF</h4>
-                <p>Complete project showcase with detailed case studies</p>
-                <div style={styles.portfolioQR}>
-                  <img 
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://github.com/muluken16" 
-                    alt="Portfolio QR Code"
-                    style={styles.portfolioQRCode}
-                    className="qr-code"
-                  />
-                </div>
-                <a 
-                  href="https://github.com/muluken16" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={styles.portfolioDownloadBtn}
-                  className="app-download-btn"
-                >
-                  <Download size={16} />
-                  Download Portfolio
-                </a>
-              </div>
-              
-              <div style={styles.portfolioDownloadCard} className="portfolio-download-card">
-                <div style={styles.portfolioDownloadIcon}>
-                  <User size={32} color="#2196F3" />
-                </div>
-                <h4>Resume PDF</h4>
-                <p>Professional resume with skills and experience</p>
-                <div style={styles.portfolioQR}>
-                  <img 
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.linkedin.com/in/mule16" 
-                    alt="Resume QR Code"
-                    style={styles.portfolioQRCode}
-                    className="qr-code"
-                  />
-                </div>
-                <a 
-                  href="https://www.linkedin.com/in/mule16" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{...styles.portfolioDownloadBtn, backgroundColor: '#2196F3'}}
-                  className="app-download-btn"
-                >
-                  <Download size={16} />
-                  Download Resume
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -2321,7 +2245,7 @@ const Portfolio = () => {
 
       {/* Contact Section */}
       <section id="contact" style={styles.contact}>
-        <h2 style={styles.sectionTitle}>Let's Work Together</h2>
+        <h2 style={styles.sectionTitle}>Contact</h2>
         <p style={styles.sectionSubtitle}>Ready to bring your ideas to life? Let's connect!</p>
         
         <div style={styles.contactContent}>
@@ -2355,24 +2279,7 @@ const Portfolio = () => {
           </div>
         </div>
         
-        <div style={styles.socialSection}>
-          <h3>Follow Me</h3>
-          <p>Stay connected and follow my journey</p>
-          <div style={styles.socialGrid}>
-            {socialLinks.map((social, index) => (
-              <a 
-                key={index}
-                href={social.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                style={styles.socialCard}
-              >
-                <social.icon size={32} color={social.color} />
-                <span>{social.name}</span>
-              </a>
-            ))}
-          </div>
-        </div>
+
       </section>
 
       {/* Footer */}
@@ -3045,43 +2952,44 @@ const styles = {
     justifyContent: 'center',
     marginTop: '30px',
   },
-  
-  // Follow Me Section Styles
-  followMeSection: {
-    textAlign: 'center',
-    marginTop: '40px',
+
+  // Hero Skills Preview Styles
+  heroSkillsPreview: {
+    marginTop: '30px',
     marginBottom: '20px',
   },
-  followMeTitle: {
-    fontSize: '24px',
-    fontWeight: '700',
+  heroSkillsTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
     color: '#1a1a1a',
-    marginBottom: '8px',
+    marginBottom: '15px',
+    textAlign: 'center',
   },
-  followMeSubtitle: {
-    fontSize: '16px',
-    color: '#64748b',
-    marginBottom: '24px',
-  },
-  followMeSocial: {
+  heroSkillsTags: {
     display: 'flex',
-    gap: '16px',
-    justifyContent: 'center',
     flexWrap: 'wrap',
+    gap: '12px',
+    justifyContent: 'center',
   },
-  followMeLink: {
+  heroSkillTag: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    color: '#fff',
-    padding: '12px 20px',
-    borderRadius: '12px',
-    textDecoration: 'none',
-    fontSize: '15px',
-    fontWeight: '600',
-    transition: 'all 0.3s ease',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+    gap: '8px',
+    padding: '8px 16px',
+    borderRadius: '25px',
+    fontSize: '14px',
+    fontWeight: '500',
+    border: '1px solid rgba(0,0,0,0.1)',
   },
+  heroSkillIcon: {
+    fontSize: '16px',
+  },
+  heroSkillLevel: {
+    fontSize: '12px',
+    fontWeight: '600',
+    opacity: 0.8,
+  },
+
   
   socialLink: {
     display: 'flex',
@@ -3346,30 +3254,7 @@ const styles = {
     color: '#333',
     transition: 'all 0.3s',
   },
-  socialSection: {
-    textAlign: 'center',
-    marginTop: '60px',
-  },
-  socialGrid: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '20px',
-    flexWrap: 'wrap',
-    marginTop: '30px',
-  },
-  socialCard: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '10px',
-    padding: '20px',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '15px',
-    textDecoration: 'none',
-    color: '#333',
-    transition: 'all 0.3s',
-    minWidth: '100px',
-  },
+
   footer: {
     backgroundColor: '#1a1a1a',
     color: '#fff',
@@ -3916,73 +3801,6 @@ const styles = {
     backgroundColor: '#f8fafc',
     borderRadius: '16px',
     border: '1px solid #e2e8f0',
-  },
-  portfolioDownload: {
-    textAlign: 'center',
-    padding: '40px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '20px',
-    marginTop: '40px',
-  },
-  portfolioDownloadTitle: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: '10px',
-  },
-  portfolioDownloadDesc: {
-    fontSize: '16px',
-    color: '#666',
-    marginBottom: '30px',
-    maxWidth: '600px',
-    margin: '0 auto 30px',
-  },
-  portfolioDownloadGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '30px',
-    maxWidth: '800px',
-    margin: '0 auto',
-  },
-  portfolioDownloadCard: {
-    backgroundColor: '#fff',
-    padding: '30px',
-    borderRadius: '15px',
-    boxShadow: '0 5px 20px rgba(0,0,0,0.08)',
-    textAlign: 'center',
-  },
-  portfolioDownloadIcon: {
-    width: '60px',
-    height: '60px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '15px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '0 auto 15px',
-  },
-  portfolioQR: {
-    margin: '20px 0',
-  },
-  portfolioQRCode: {
-    width: '120px',
-    height: '120px',
-    borderRadius: '10px',
-    border: '2px solid #f0f0f0',
-  },
-  portfolioDownloadBtn: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    backgroundColor: '#E63946',
-    color: '#fff',
-    padding: '12px 24px',
-    borderRadius: '10px',
-    textDecoration: 'none',
-    fontSize: '14px',
-    fontWeight: '600',
-    transition: 'all 0.3s ease',
-    marginTop: '10px',
   },
   // Skills Section Styles
   skillsSection: {
@@ -5234,38 +5052,36 @@ const styles = {
     borderRadius: '12px',
     transition: 'all 0.3s ease',
   },
-  aboutCTA: {
-    display: 'flex',
-    gap: '16px',
-    flexWrap: 'wrap',
+
+  // About Values Styles
+  aboutValues: {
+    marginTop: '30px',
+    background: 'rgba(59, 130, 246, 0.05)',
+    borderRadius: '16px',
+    padding: '24px',
+    border: '1px solid rgba(59, 130, 246, 0.1)',
   },
-  aboutCTAButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
-    color: 'white',
-    border: 'none',
-    padding: '14px 24px',
-    borderRadius: '12px',
-    fontSize: '15px',
+  aboutValuesTitle: {
+    fontSize: '18px',
     fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    boxShadow: '0 4px 16px rgba(59, 130, 246, 0.3)',
+    color: '#1e293b',
+    margin: '0 0 20px 0',
   },
-  aboutCTASecondary: {
+  aboutValuesList: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '12px',
+  },
+  aboutValue: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: '10px',
+    padding: '10px 12px',
     background: 'white',
-    color: '#3b82f6',
-    border: '2px solid #3b82f6',
-    padding: '12px 24px',
-    borderRadius: '12px',
-    fontSize: '15px',
-    fontWeight: '600',
-    cursor: 'pointer',
+    borderRadius: '10px',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#374151',
     transition: 'all 0.3s ease',
   },
 };
