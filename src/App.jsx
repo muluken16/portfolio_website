@@ -409,7 +409,13 @@ const Portfolio = () => {
     { name: 'React', level: 95, icon: '⚛️', color: '#61DAFB', experience: '3+ years' },
     { name: 'Node.js', level: 94, icon: '🟢', color: '#339933', experience: '3+ years' },
     { name: 'React Native', level: 93, icon: '📱', color: '#61DAFB', experience: '3+ years' },
-    { name: 'MongoDB', level: 91, icon: '🍃', color: '#47A248', experience: '3+ years' }
+    { name: 'MySQL Database', level: 91, icon: '🗄️', color: '#4479A1', experience: '3+ years' },
+    { name: 'IT Support', level: 88, icon: '🔧', color: '#FF6B35', experience: '2+ years' },
+    { name: 'System Admin', level: 85, icon: '⚙️', color: '#6C757D', experience: '2+ years' },
+    { name: 'Network Config', level: 82, icon: '🌐', color: '#0066CC', experience: '2+ years' },
+    { name: 'Linux Admin', level: 87, icon: '🐧', color: '#FCC624', experience: '2+ years' },
+    { name: 'Server Setup', level: 84, icon: '🖥️', color: '#28A745', experience: '2+ years' },
+    { name: 'Troubleshooting', level: 90, icon: '🔍', color: '#DC3545', experience: '3+ years' }
   ]);
   // Testimonials
   const [testimonials, setTestimonials] = useState([
@@ -2016,7 +2022,7 @@ const Portfolio = () => {
             <span role="img" aria-label="rocket">🚀</span> Skills & Technologies
           </h2>
           <p style={styles.sectionSubtitle}>
-            Top programming languages and technologies I work with
+            Programming languages, IT support, database administration, and system management skills
           </p>
           
           {/* Compact Skills Grid */}
