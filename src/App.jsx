@@ -256,6 +256,21 @@ const Portfolio = () => {
         riderAppMainImage
       ],
       status: 'Active'
+    },
+    {
+      id: 'muyapro-app',
+      title: 'MuyaPro',
+      description: 'Service marketplace connecting customers with technicians.',
+      icon: '🔧',
+      color: '#9C27B0',
+      features: ['Service Booking', 'Technician Matching', 'Payments'],
+      tech: ['React Native', 'Expo', 'Firebase'],
+      screenshots: [
+        'https://via.placeholder.com/200x400/9C27B0/ffffff?text=MuyaPro+Home',
+        'https://via.placeholder.com/200x400/9C27B0/ffffff?text=Services',
+        'https://via.placeholder.com/200x400/9C27B0/ffffff?text=Technicians'
+      ],
+      status: 'Active'
     }
   ]);
 
@@ -845,6 +860,19 @@ const Portfolio = () => {
     },
     {
       id: 3,
+      title: "MuyaPro Service Marketplace",
+      description: "Service marketplace connecting customers with technicians.",
+      image: "�",
+      tech: ["React Native", "Expo", "Firebase", "Redux"],
+      github: "https://github.com/muluken16/BM2-Ecomerice-",
+      demo: "https://muyapro-demo.netlify.app",
+      status: "Active",
+      stars: 15,
+      forks: 4,
+      category: "Mobile App"
+    },
+    {
+      id: 4,
       title: "E-Commerce Platform",
       description: "E-commerce website with shopping cart and payments.",
       image: "🛒",
@@ -1453,11 +1481,16 @@ const Portfolio = () => {
             
             {/* Brief Description */}
             <div style={styles.heroDescription}>
-              Full-stack developer specializing in React, React Native, and modern web technologies. Building scalable applications with clean code and user-focused design.
+              <span className={isMobile ? 'mobile-hide-description' : ''}>
+                Full-stack developer specializing in React, React Native, and modern web technologies. Building scalable applications with clean code and user-focused design.
+              </span>
+              <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                Full-stack developer building modern web & mobile apps.
+              </span>
             </div>
             
             {/* Career Objective */}
-            <div style={styles.heroAssumption}>
+            <div style={styles.heroAssumption} className={isMobile ? 'mobile-hide-description' : ''}>
               <strong>Career Objective:</strong> Seeking opportunities to contribute to innovative software projects while growing as a full-stack developer.
             </div>
 
@@ -1516,7 +1549,8 @@ const Portfolio = () => {
                   <p style={styles.aboutProfileTitle}>Full-Stack Developer</p>
                   <div style={styles.aboutProfileLocation}>
                     <MapPin size={16} color="#64748b" />
-                    <span>Ethiopia (Remote Available)</span>
+                    <span className={isMobile ? 'mobile-hide-description' : ''}>Ethiopia (Remote Available)</span>
+                    <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Ethiopia</span>
                   </div>
                 </div>
 
@@ -1528,7 +1562,8 @@ const Portfolio = () => {
                   </div>
                   <div style={styles.aboutQuickStat}>
                     <div style={styles.aboutStatNumber}>3.35</div>
-                    <div style={styles.aboutStatLabel}>CGPA</div>
+                    <div style={styles.aboutStatLabel} className={isMobile ? 'mobile-hide-description' : ''}>CGPA</div>
+                    <div style={{...styles.aboutStatLabel, display: isMobile ? 'block' : 'none'}} className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'}>GPA</div>
                   </div>
                   <div style={styles.aboutQuickStat}>
                     <div style={styles.aboutStatNumber}>10+</div>
@@ -1538,21 +1573,26 @@ const Portfolio = () => {
               </div>
 
               {/* Education Card */}
-              <div style={styles.aboutEducationCard}>
+              <div style={styles.aboutEducationCard} className={isMobile ? 'mobile-compact-education' : ''}>
                 <div style={styles.aboutCardHeader}>
-                  <GraduationCap size={24} color="#3b82f6" />
-                  <h4>Education</h4>
+                  <GraduationCap size={isMobile ? 20 : 24} color="#3b82f6" />
+                  <h4 style={{fontSize: isMobile ? '16px' : '18px'}}>Education</h4>
                 </div>
                 <div style={styles.aboutEducationItem}>
                   <div style={styles.aboutEducationDegree}>
-                    Bachelor of Science in Computer Science
+                    <span className={isMobile ? 'mobile-hide-description' : ''}>
+                      Bachelor of Science in Computer Science
+                    </span>
+                    <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                      BSc Computer Science
+                    </span>
                   </div>
                   <div style={styles.aboutEducationSchool}>
                     Wolkite University
                   </div>
                   <div style={styles.aboutEducationDetails}>
                     <span style={styles.aboutEducationYear}>2019 - 2023</span>
-                    <span style={styles.aboutEducationGPA}>CGPA: 3.35</span>
+                    <span style={styles.aboutEducationGPA} className={isMobile ? 'mobile-hide-description' : ''}>CGPA: 3.35</span>
                   </div>
                 </div>
               </div>
@@ -1562,34 +1602,44 @@ const Portfolio = () => {
             <div style={styles.aboutRight}>
               <div style={styles.aboutHeader}>
                 <h2 style={styles.aboutTitle}>About Me</h2>
-                <p style={styles.aboutSubtitle}>
-                  Passionate about creating innovative digital solutions that make a real impact
-                </p>
+                <div style={styles.aboutSubtitle}>
+                  <span className={isMobile ? 'mobile-hide-description' : ''}>
+                    Passionate about creating innovative digital solutions that make a real impact
+                  </span>
+                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                    Full-Stack Developer & Mobile App Specialist
+                  </span>
+                </div>
               </div>
 
               <div style={styles.aboutDescription}>
-                <p style={styles.aboutParagraph}>
-                  I'm a recent Computer Science graduate from Wolkite University with a strong passion for 
-                  building practical software solutions. My journey in technology has been driven by curiosity 
-                  and a desire to create applications that solve real-world problems.
-                </p>
+                <div style={styles.aboutParagraph}>
+                  <span className={isMobile ? 'mobile-hide-description' : ''}>
+                    I'm a recent Computer Science graduate from Wolkite University with a strong passion for 
+                    building practical software solutions. My journey in technology has been driven by curiosity 
+                    and a desire to create applications that solve real-world problems.
+                  </span>
+                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                    Computer Science graduate passionate about building practical software solutions.
+                  </span>
+                </div>
                 
-                <p style={styles.aboutParagraph}>
+                <div style={styles.aboutParagraph} className={isMobile ? 'mobile-hide-description' : ''}>
                   With hands-on experience in developing web and cross-platform mobile applications, I specialize 
                   in React Native and Flutter for mobile development, while leveraging Python, JavaScript, PHP, 
                   and SQL for backend solutions. I'm comfortable working with various databases including MySQL 
                   and SQL Server.
-                </p>
+                </div>
 
-                <p style={styles.aboutParagraph}>
+                <div style={styles.aboutParagraph} className={isMobile ? 'mobile-hide-description' : ''}>
                   As a fast learner and problem solver, I enjoy collaborating with forward-thinking development 
                   teams and turning innovative ideas into reliable, scalable applications. I'm always eager to 
                   take on new challenges and contribute to projects that make a difference.
-                </p>
+                </div>
               </div>
 
               {/* Professional Values */}
-              <div style={styles.aboutValues}>
+              <div style={styles.aboutValues} className={isMobile ? 'mobile-hide-features' : ''}>
                 <h4 style={styles.aboutValuesTitle}>Professional Values</h4>
                 <div style={styles.aboutValuesList}>
                   <div style={styles.aboutValue}>
@@ -1616,27 +1666,29 @@ const Portfolio = () => {
                 <h4 style={styles.aboutHighlightsTitle}>Key Highlights</h4>
                 <div style={styles.aboutHighlightsList}>
                   <div style={styles.aboutHighlightItem}>
-                    <Code size={20} color="#3b82f6" />
+                    <Code size={isMobile ? 18 : 20} color="#3b82f6" />
                     <div>
                       <strong>Full-Stack Development</strong>
-                      <p>End-to-end application development with modern technologies</p>
+                      <p className={isMobile ? 'mobile-hide-description' : ''}>End-to-end application development with modern technologies</p>
+                      <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Modern web & mobile apps</p>
                     </div>
                   </div>
                   <div style={styles.aboutHighlightItem}>
-                    <Smartphone size={20} color="#10b981" />
+                    <Smartphone size={isMobile ? 18 : 20} color="#10b981" />
                     <div>
                       <strong>Mobile App Specialist</strong>
-                      <p>Cross-platform mobile apps with React Native & Flutter</p>
+                      <p className={isMobile ? 'mobile-hide-description' : ''}>Cross-platform mobile apps with React Native & Flutter</p>
+                      <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React Native & Flutter</p>
                     </div>
                   </div>
-                  <div style={styles.aboutHighlightItem}>
+                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-features' : ''}>
                     <Database size={20} color="#f59e0b" />
                     <div>
                       <strong>Database Management</strong>
                       <p>Proficient in MySQL, SQL Server, and database optimization</p>
                     </div>
                   </div>
-                  <div style={styles.aboutHighlightItem}>
+                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-features' : ''}>
                     <Users size={20} color="#ef4444" />
                     <div>
                       <strong>Team Collaboration</strong>
@@ -1681,11 +1733,22 @@ const Portfolio = () => {
                   </div>
 
                   {/* App Description */}
-                  <p style={styles.modernAppDescription}>{app.description}</p>
+                  <div style={styles.modernAppDescription}>
+                    <span className={isMobile ? 'mobile-hide-description' : ''}>
+                      {app.description}
+                    </span>
+                    <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                      {app.title === 'Customer App' ? 'Food ordering with tracking & payments' :
+                       app.title === 'Vendor App' ? 'Restaurant management & analytics' :
+                       app.title === 'Rider App' ? 'Delivery app with GPS & earnings' :
+                       app.title === 'MuyaPro' ? 'Service marketplace app' :
+                       app.description.split('.')[0] + '.'}
+                    </span>
+                  </div>
 
                   {/* Key Features Grid */}
                   <div style={styles.modernFeaturesGrid}>
-                    {app.features.slice(0, 4).map((feature, i) => (
+                    {app.features.slice(0, isMobile ? 2 : 4).map((feature, i) => (
                       <div key={i} style={styles.modernFeatureItem}>
                         <div style={{...styles.modernFeatureIcon, backgroundColor: `${app.color}20`}}>
                           <CheckCircle size={16} color={app.color} />
@@ -1697,7 +1760,7 @@ const Portfolio = () => {
 
                   {/* Tech Stack Pills */}
                   <div style={styles.modernTechStack}>
-                    {app.tech.slice(0, 4).map((tech, i) => (
+                    {app.tech.slice(0, isMobile ? 3 : 4).map((tech, i) => (
                       <span key={i} style={styles.modernTechPill}>
                         {tech}
                       </span>
@@ -1866,10 +1929,17 @@ const Portfolio = () => {
                 </div>
                 
                 <h3 style={styles.projectTitle}>{project.title}</h3>
-                <p style={styles.projectDesc}>{project.description}</p>
+                <div style={styles.projectDesc}>
+                  <span className={isMobile ? 'mobile-hide-description' : ''}>
+                    {project.description}
+                  </span>
+                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                    {project.description.length > 50 ? project.description.substring(0, 50) + '...' : project.description}
+                  </span>
+                </div>
                 
                 <div style={styles.projectTech}>
-                  {project.tech.slice(0, 4).map((tech, i) => (
+                  {project.tech.slice(0, isMobile ? 3 : 4).map((tech, i) => (
                     <span key={i} style={styles.techTag}>{tech}</span>
                   ))}
                 </div>
@@ -3566,10 +3636,10 @@ const styles = {
   // Modern App Styles
   modernAppGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '24px',
     marginBottom: '60px',
-    maxWidth: '1200px',
+    maxWidth: '1400px',
     margin: '0 auto 60px auto',
   },
   modernAppCard: {
