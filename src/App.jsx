@@ -6,6 +6,8 @@ import appScreenshot2 from './assets/deliverapp/photo_2025-12.jpg';
 import appScreenshot3 from './assets/deliverapp/photo_2025.jpg';
 // Customer App APK
 import customerAppApk from './assets/app/customer.apk';
+// MuyaPro App APK
+import muyaproAppApk from './assets/app/muyapro.apk';
 // Rider App Images
 import riderAppMainImage from './assets/rideapp/image.png';
 import riderAppScreenshot1 from './assets/rideapp/photo_2025-12-18_12-22-29.jpg';
@@ -239,7 +241,7 @@ const Portfolio = () => {
         'https://via.placeholder.com/200x400/2196F3/ffffff?text=Orders',
         'https://via.placeholder.com/200x400/2196F3/ffffff?text=Analytics'
       ],
-      status: 'Active'
+      status: 'Coming Soon'
     },
     {
       id: 'rider-app',
@@ -255,7 +257,7 @@ const Portfolio = () => {
         riderAppScreenshot2,
         riderAppMainImage
       ],
-      status: 'Active'
+      status: 'Coming Soon'
     },
     {
       id: 'muyapro-app',
@@ -270,6 +272,7 @@ const Portfolio = () => {
         'https://via.placeholder.com/200x400/9C27B0/ffffff?text=Services',
         'https://via.placeholder.com/200x400/9C27B0/ffffff?text=Technicians'
       ],
+      downloadUrl: muyaproAppApk,
       status: 'Active'
     }
   ]);
