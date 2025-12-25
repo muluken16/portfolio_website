@@ -8,6 +8,13 @@ import appScreenshot3 from './assets/deliverapp/photo_2025.jpg';
 import customerAppApk from './assets/app/customer.apk';
 // MuyaPro App APK
 import muyaproAppApk from './assets/app/muyapro.apk';
+// MuyaPro App Images
+import muyaproImage1 from './assets/muyapro/photo_2025-12-25_22-31-30.jpg';
+import muyaproImage2 from './assets/muyapro/photo_2025-12-25_22-32-32.jpg';
+import muyaproImage3 from './assets/muyapro/photo_2025-12-25_22-33-25.jpg';
+import muyaproImage4 from './assets/muyapro/photo_2025-12-25_22-33-30.jpg';
+import muyaproImage5 from './assets/muyapro/photo_2025-12-25_22-33-34.jpg';
+import muyaproImage6 from './assets/muyapro/photo_2025-12-25_22-33-39.jpg';
 // Rider App Images
 import riderAppMainImage from './assets/rideapp/image.png';
 import riderAppScreenshot1 from './assets/rideapp/photo_2025-12-18_12-22-29.jpg';
@@ -267,10 +274,14 @@ const Portfolio = () => {
       color: '#9C27B0',
       features: ['Service Book', 'Tech Matching'],
       tech: ['React Native', 'Expo', 'Firebase'],
+      mainImage: muyaproImage1,
       screenshots: [
-        'https://via.placeholder.com/200x400/9C27B0/ffffff?text=MuyaPro+Home',
-        'https://via.placeholder.com/200x400/9C27B0/ffffff?text=Services',
-        'https://via.placeholder.com/200x400/9C27B0/ffffff?text=Technicians'
+        muyaproImage1,
+        muyaproImage2,
+        muyaproImage3,
+        muyaproImage4,
+        muyaproImage5,
+        muyaproImage6
       ],
       downloadUrl: muyaproAppApk,
       status: 'Active'
