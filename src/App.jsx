@@ -1571,6 +1571,29 @@ const Portfolio = () => {
                 </div>
               </div>
 
+              {/* Professional Values - Moved to left side */}
+              <div style={styles.aboutValues} className={isMobile ? 'mobile-hide-description' : ''}>
+                <h4 style={styles.aboutValuesTitle}>Professional Values</h4>
+                <div style={styles.aboutValuesList}>
+                  <div style={styles.aboutValue}>
+                    <Target size={16} color="#3b82f6" />
+                    <span>Quality-focused development</span>
+                  </div>
+                  <div style={styles.aboutValue}>
+                    <Users size={16} color="#10b981" />
+                    <span>Collaborative teamwork</span>
+                  </div>
+                  <div style={styles.aboutValue}>
+                    <Lightbulb size={16} color="#f59e0b" />
+                    <span>Continuous learning</span>
+                  </div>
+                  <div style={styles.aboutValue}>
+                    <Rocket size={16} color="#ef4444" />
+                    <span>Innovation-driven solutions</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Education Card - Hide on mobile */}
               <div style={styles.aboutEducationCard} className={isMobile ? 'mobile-hide-description' : ''}>
                 <div style={styles.aboutCardHeader}>
@@ -1632,62 +1655,45 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Professional Values - Hide on mobile */}
-              <div style={styles.aboutValues} className={isMobile ? 'mobile-hide-description' : ''}>
-                <h4 style={styles.aboutValuesTitle}>Professional Values</h4>
-                <div style={styles.aboutValuesList}>
-                  <div style={styles.aboutValue}>
-                    <Target size={16} color="#3b82f6" />
-                    <span>Quality-focused development</span>
-                  </div>
-                  <div style={styles.aboutValue}>
-                    <Users size={16} color="#10b981" />
-                    <span>Collaborative teamwork</span>
-                  </div>
-                  <div style={styles.aboutValue}>
-                    <Lightbulb size={16} color="#f59e0b" />
-                    <span>Continuous learning</span>
-                  </div>
-                  <div style={styles.aboutValue}>
-                    <Rocket size={16} color="#ef4444" />
-                    <span>Innovation-driven solutions</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Highlights - Simplified for mobile */}
+              {/* Key Highlights - Very small and compact */}
               <div style={styles.aboutHighlights}>
-                <h4 style={styles.aboutHighlightsTitle} className={isMobile ? 'mobile-hide-description' : ''}>Key Highlights</h4>
-                <h4 style={{...styles.aboutHighlightsTitle, fontSize: '16px', display: isMobile ? 'block' : 'none'}} className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'}>Skills</h4>
-                <div style={styles.aboutHighlightsList}>
-                  <div style={styles.aboutHighlightItem}>
-                    <Code size={isMobile ? 18 : 20} color="#3b82f6" />
-                    <div>
-                      <strong>Full-Stack Development</strong>
-                      <p className={isMobile ? 'mobile-hide-description' : ''}>End-to-end application development with modern technologies</p>
-                      <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React, Node.js, MongoDB</p>
+                <h4 style={{...styles.aboutHighlightsTitle, fontSize: isMobile ? '14px' : '16px', marginBottom: isMobile ? '8px' : '12px'}}>
+                  <span className={isMobile ? 'mobile-hide-description' : ''}>Key Highlights</span>
+                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Skills</span>
+                </h4>
+                <div style={{...styles.aboutHighlightsList, gap: isMobile ? '8px' : '12px'}}>
+                  <div style={{...styles.aboutHighlightItem, padding: isMobile ? '8px' : '12px', minHeight: 'auto'}}>
+                    <Code size={isMobile ? 16 : 18} color="#3b82f6" />
+                    <div style={{textAlign: isMobile ? 'center' : 'left'}}>
+                      <strong style={{fontSize: isMobile ? '12px' : '14px'}}>Full-Stack</strong>
+                      <p style={{fontSize: isMobile ? '10px' : '12px', margin: 0, lineHeight: 1.2}}>
+                        <span className={isMobile ? 'mobile-hide-description' : ''}>End-to-end application development with modern technologies</span>
+                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React, Node.js</span>
+                      </p>
                     </div>
                   </div>
-                  <div style={styles.aboutHighlightItem}>
-                    <Smartphone size={isMobile ? 18 : 20} color="#10b981" />
-                    <div>
-                      <strong>Mobile Apps</strong>
-                      <p className={isMobile ? 'mobile-hide-description' : ''}>Cross-platform mobile apps with React Native & Flutter</p>
-                      <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React Native & Flutter</p>
+                  <div style={{...styles.aboutHighlightItem, padding: isMobile ? '8px' : '12px', minHeight: 'auto'}}>
+                    <Smartphone size={isMobile ? 16 : 18} color="#10b981" />
+                    <div style={{textAlign: isMobile ? 'center' : 'left'}}>
+                      <strong style={{fontSize: isMobile ? '12px' : '14px'}}>Mobile Apps</strong>
+                      <p style={{fontSize: isMobile ? '10px' : '12px', margin: 0, lineHeight: 1.2}}>
+                        <span className={isMobile ? 'mobile-hide-description' : ''}>Cross-platform mobile apps with React Native & Flutter</span>
+                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React Native</span>
+                      </p>
                     </div>
                   </div>
                   <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-description' : ''}>
-                    <Database size={20} color="#f59e0b" />
+                    <Database size={18} color="#f59e0b" />
                     <div>
-                      <strong>Database Management</strong>
-                      <p>Proficient in MySQL, SQL Server, and database optimization</p>
+                      <strong style={{fontSize: '14px'}}>Database</strong>
+                      <p style={{fontSize: '12px', margin: 0, lineHeight: 1.2}}>MySQL, SQL Server</p>
                     </div>
                   </div>
                   <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-description' : ''}>
-                    <Users size={20} color="#ef4444" />
+                    <Users size={18} color="#ef4444" />
                     <div>
-                      <strong>Team Collaboration</strong>
-                      <p>Strong communication skills and collaborative mindset</p>
+                      <strong style={{fontSize: '14px'}}>Collaboration</strong>
+                      <p style={{fontSize: '12px', margin: 0, lineHeight: 1.2}}>Team communication</p>
                     </div>
                   </div>
                 </div>
