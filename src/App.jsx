@@ -1898,38 +1898,6 @@ const Portfolio = () => {
            `${githubRepos.length} projects fetched from GitHub`}
         </p>
         
-        {/* GitHub Stats */}
-        <div style={styles.githubStatsContainer}>
-          <div style={styles.githubStat}>
-            <Github size={24} color="#E63946" />
-            <div>
-              <span style={styles.githubStatNumber}>{githubStats.repos}</span>
-              <span style={styles.githubStatLabel}>Repositories</span>
-            </div>
-          </div>
-          <div style={styles.githubStat}>
-            <Star size={24} color="#FFD700" />
-            <div>
-              <span style={styles.githubStatNumber}>{githubStats.stars}</span>
-              <span style={styles.githubStatLabel}>Stars</span>
-            </div>
-          </div>
-          <div style={styles.githubStat}>
-            <Users size={24} color="#4CAF50" />
-            <div>
-              <span style={styles.githubStatNumber}>{githubStats.followers}</span>
-              <span style={styles.githubStatLabel}>Followers</span>
-            </div>
-          </div>
-          <div style={styles.githubStat}>
-            <GitBranch size={24} color="#2196F3" />
-            <div>
-              <span style={styles.githubStatNumber}>{githubStats.following}</span>
-              <span style={styles.githubStatLabel}>Following</span>
-            </div>
-          </div>
-        </div>
-        
         {githubLoading ? (
           <div style={styles.loadingContainer}>
             <div style={styles.loadingSpinner} className="loading-spinner"></div>
