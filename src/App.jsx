@@ -221,7 +221,7 @@ const Portfolio = () => {
       description: 'Food & grocery ordering app with real-time tracking and secure payments.',
       icon: '📱',
       color: '#4CAF50',
-      features: ['Real-time Track', 'Secure Pay', 'Push Notify'],
+      features: ['Real-time Track', 'Secure Pay'],
       tech: ['React Native', 'Redux', 'Socket.io'],
       mainImage: appMainImage,
       screenshots: [appScreenshot1, appScreenshot2, appScreenshot3],
@@ -234,7 +234,7 @@ const Portfolio = () => {
       description: 'Restaurant & shop management app for orders, inventory, and analytics.',
       icon: '🏪',
       color: '#2196F3',
-      features: ['Order Manage', 'Inventory Track', 'Sales Analytics'],
+      features: ['Order Manage', 'Sales Analytics'],
       tech: ['React Native', 'GraphQL', 'MongoDB'],
       screenshots: [
         'https://via.placeholder.com/200x400/2196F3/ffffff?text=Vendor+Dashboard',
@@ -249,7 +249,7 @@ const Portfolio = () => {
       description: 'Professional delivery rider app with GPS navigation, earnings tracking, and route optimization for efficient deliveries.',
       icon: '🚴‍♂️',
       color: '#FF9800',
-      features: ['GPS Navigate', 'Earnings Track', 'Route Optimize'],
+      features: ['GPS Navigate', 'Earnings Track'],
       tech: ['React Native', 'Google Maps API', 'Firebase'],
       mainImage: riderAppMainImage,
       screenshots: [
@@ -265,7 +265,7 @@ const Portfolio = () => {
       description: 'Service marketplace connecting customers with technicians.',
       icon: '🔧',
       color: '#9C27B0',
-      features: ['Service Book', 'Tech Matching', 'Payments'],
+      features: ['Service Book', 'Tech Matching'],
       tech: ['React Native', 'Expo', 'Firebase'],
       screenshots: [
         'https://via.placeholder.com/200x400/9C27B0/ffffff?text=MuyaPro+Home',
@@ -1759,9 +1759,6 @@ const Portfolio = () => {
                   <div style={styles.modernFeaturesGrid}>
                     {app.features.map((feature, i) => (
                       <div key={i} style={styles.modernFeatureItem}>
-                        <div style={{...styles.modernFeatureIcon, backgroundColor: `${app.color}20`}}>
-                          <CheckCircle size={16} color={app.color} />
-                        </div>
                         <span style={styles.modernFeatureText}>{feature}</span>
                       </div>
                     ))}
@@ -3714,13 +3711,14 @@ const styles = {
   },
   modernFeaturesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(2, 1fr)',
     gap: '10px',
     marginBottom: '16px',
   },
   modernFeatureItem: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '8px',
     padding: '8px',
     backgroundColor: '#fafafa',

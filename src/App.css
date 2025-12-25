@@ -1306,15 +1306,16 @@ body {
   }
   
   .modern-features-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
   }
   
   .modern-feature-item {
     padding: 6px !important;
     gap: 6px !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     text-align: center !important;
+    justify-content: center !important;
   }
   
   .modern-feature-text {
