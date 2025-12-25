@@ -1528,7 +1528,7 @@ const Portfolio = () => {
         <div style={styles.aboutContainer}>
           <div style={styles.aboutContent}>
             {/* Left Column - Profile & Stats */}
-            <div style={styles.aboutLeft}>
+            <div style={styles.aboutLeft} className={isMobile ? 'mobile-compact-profile' : ''}>
               <div style={styles.aboutProfileCard}>
                 <div style={styles.aboutImageContainer}>
                   <img 
@@ -1536,7 +1536,7 @@ const Portfolio = () => {
                     alt="Muluken Mesfin" 
                     style={styles.aboutProfileImage}
                   />
-                  <div style={styles.aboutImageOverlay}>
+                  <div style={styles.aboutImageOverlay} className={isMobile ? 'mobile-hide-description' : ''}>
                     <div style={styles.aboutImageBadge}>
                       <CheckCircle size={20} color="#4CAF50" />
                       <span>Verified Developer</span>
@@ -1554,16 +1554,15 @@ const Portfolio = () => {
                   </div>
                 </div>
 
-                {/* Quick Stats */}
-                <div style={styles.aboutQuickStats}>
+                {/* Quick Stats - Hide on mobile */}
+                <div style={styles.aboutQuickStats} className={isMobile ? 'mobile-hide-description' : ''}>
                   <div style={styles.aboutQuickStat}>
                     <div style={styles.aboutStatNumber}>2023</div>
                     <div style={styles.aboutStatLabel}>Graduate</div>
                   </div>
                   <div style={styles.aboutQuickStat}>
                     <div style={styles.aboutStatNumber}>3.35</div>
-                    <div style={styles.aboutStatLabel} className={isMobile ? 'mobile-hide-description' : ''}>CGPA</div>
-                    <div style={{...styles.aboutStatLabel, display: isMobile ? 'block' : 'none'}} className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'}>GPA</div>
+                    <div style={styles.aboutStatLabel}>CGPA</div>
                   </div>
                   <div style={styles.aboutQuickStat}>
                     <div style={styles.aboutStatNumber}>10+</div>
@@ -1572,27 +1571,22 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Education Card */}
-              <div style={styles.aboutEducationCard} className={isMobile ? 'mobile-compact-education' : ''}>
+              {/* Education Card - Hide on mobile */}
+              <div style={styles.aboutEducationCard} className={isMobile ? 'mobile-hide-description' : ''}>
                 <div style={styles.aboutCardHeader}>
-                  <GraduationCap size={isMobile ? 20 : 24} color="#3b82f6" />
-                  <h4 style={{fontSize: isMobile ? '16px' : '18px'}}>Education</h4>
+                  <GraduationCap size={24} color="#3b82f6" />
+                  <h4>Education</h4>
                 </div>
                 <div style={styles.aboutEducationItem}>
                   <div style={styles.aboutEducationDegree}>
-                    <span className={isMobile ? 'mobile-hide-description' : ''}>
-                      Bachelor of Science in Computer Science
-                    </span>
-                    <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                      BSc Computer Science
-                    </span>
+                    Bachelor of Science in Computer Science
                   </div>
                   <div style={styles.aboutEducationSchool}>
                     Wolkite University
                   </div>
                   <div style={styles.aboutEducationDetails}>
                     <span style={styles.aboutEducationYear}>2019 - 2023</span>
-                    <span style={styles.aboutEducationGPA} className={isMobile ? 'mobile-hide-description' : ''}>CGPA: 3.35</span>
+                    <span style={styles.aboutEducationGPA}>CGPA: 3.35</span>
                   </div>
                 </div>
               </div>
@@ -1620,7 +1614,7 @@ const Portfolio = () => {
                     and a desire to create applications that solve real-world problems.
                   </span>
                   <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                    Computer Science graduate passionate about building practical software solutions.
+                    Computer Science graduate specializing in React Native, JavaScript, and modern web technologies.
                   </span>
                 </div>
                 
@@ -1638,8 +1632,8 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Professional Values */}
-              <div style={styles.aboutValues} className={isMobile ? 'mobile-hide-features' : ''}>
+              {/* Professional Values - Hide on mobile */}
+              <div style={styles.aboutValues} className={isMobile ? 'mobile-hide-description' : ''}>
                 <h4 style={styles.aboutValuesTitle}>Professional Values</h4>
                 <div style={styles.aboutValuesList}>
                   <div style={styles.aboutValue}>
@@ -1661,34 +1655,35 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Key Highlights */}
+              {/* Key Highlights - Simplified for mobile */}
               <div style={styles.aboutHighlights}>
-                <h4 style={styles.aboutHighlightsTitle}>Key Highlights</h4>
+                <h4 style={styles.aboutHighlightsTitle} className={isMobile ? 'mobile-hide-description' : ''}>Key Highlights</h4>
+                <h4 style={{...styles.aboutHighlightsTitle, fontSize: '16px', display: isMobile ? 'block' : 'none'}} className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'}>Skills</h4>
                 <div style={styles.aboutHighlightsList}>
                   <div style={styles.aboutHighlightItem}>
                     <Code size={isMobile ? 18 : 20} color="#3b82f6" />
                     <div>
                       <strong>Full-Stack Development</strong>
                       <p className={isMobile ? 'mobile-hide-description' : ''}>End-to-end application development with modern technologies</p>
-                      <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Modern web & mobile apps</p>
+                      <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React, Node.js, MongoDB</p>
                     </div>
                   </div>
                   <div style={styles.aboutHighlightItem}>
                     <Smartphone size={isMobile ? 18 : 20} color="#10b981" />
                     <div>
-                      <strong>Mobile App Specialist</strong>
+                      <strong>Mobile Apps</strong>
                       <p className={isMobile ? 'mobile-hide-description' : ''}>Cross-platform mobile apps with React Native & Flutter</p>
                       <p className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React Native & Flutter</p>
                     </div>
                   </div>
-                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-features' : ''}>
+                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-description' : ''}>
                     <Database size={20} color="#f59e0b" />
                     <div>
                       <strong>Database Management</strong>
                       <p>Proficient in MySQL, SQL Server, and database optimization</p>
                     </div>
                   </div>
-                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-features' : ''}>
+                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-description' : ''}>
                     <Users size={20} color="#ef4444" />
                     <div>
                       <strong>Team Collaboration</strong>
@@ -1697,7 +1692,6 @@ const Portfolio = () => {
                   </div>
                 </div>
               </div>
-
 
             </div>
           </div>
