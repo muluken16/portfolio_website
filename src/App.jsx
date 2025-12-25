@@ -4,6 +4,12 @@ import appMainImage from './assets/deliverapp/image.png';
 import appScreenshot1 from './assets/deliverapp/photo_2025-12-18.jpg';
 import appScreenshot2 from './assets/deliverapp/photo_2025-12.jpg';
 import appScreenshot3 from './assets/deliverapp/photo_2025.jpg';
+// Customer App APK
+import customerAppApk from './assets/app/customer.apk';
+// Rider App Images
+import riderAppMainImage from './assets/rideapp/image.png';
+import riderAppScreenshot1 from './assets/rideapp/photo_2025-12-18_12-22-29.jpg';
+import riderAppScreenshot2 from './assets/rideapp/photo_2025-12-18_12-22-29 (2).jpg';
 // Certification Images
 import ciscoCert from './assets/Certifications & Training/Cisco.jpg';
 import digitalMarketingCert from './assets/Certifications & Training/Digital Marketing.png';
@@ -36,11 +42,10 @@ import {
   Eye,
   Calendar,
   Twitter,
-  Instagram,
-  Facebook,
   MessageCircle,
   Send,
   ChevronRight,
+  ChevronLeft,
   Play,
   Code2,
   Zap,
@@ -186,6 +191,15 @@ const Portfolio = () => {
     issuer: ''
   });
   
+  // Mobile Frame Preview State
+  const [mobilePreview, setMobilePreview] = useState({
+    isOpen: false,
+    images: [],
+    currentIndex: 0,
+    appTitle: '',
+    appColor: '#4CAF50'
+  });
+  
   // GitHub Integration State
   const [githubRepos, setGithubRepos] = useState([]);
   const [githubLoading, setGithubLoading] = useState(true);
@@ -202,39 +216,24 @@ const Portfolio = () => {
     {
       id: 'customer-app',
       title: 'Customer App',
-      description: 'Full-featured customer app for ordering food, groceries, and services with real-time tracking and secure payments.',
+      description: 'Food & grocery ordering app with real-time tracking and secure payments.',
       icon: '📱',
       color: '#4CAF50',
-      features: ['Real-time Order Tracking', 'Multiple Payment Options', 'Push Notifications', 'User Reviews & Ratings'],
-      tech: ['React Native', 'Redux', 'Socket.io', 'Stripe API'],
-      downloadUrl: '',
-      qrCode: '',
-      playStore: '',
-      appStore: '',
-      version: '1.0.0',
-      size: '25 MB',
+      features: ['Real-time Tracking', 'Secure Payments', 'Push Notifications'],
+      tech: ['React Native', 'Redux', 'Socket.io'],
       mainImage: appMainImage,
-      screenshots: [
-        appScreenshot1,
-        appScreenshot2,
-        appScreenshot3
-      ],
+      screenshots: [appScreenshot1, appScreenshot2, appScreenshot3],
+      downloadUrl: customerAppApk,
       status: 'Active'
     },
     {
       id: 'vendor-app',
       title: 'Vendor App',
-      description: 'Comprehensive vendor management app for restaurants and shops to manage orders, inventory, and analytics.',
+      description: 'Restaurant & shop management app for orders, inventory, and analytics.',
       icon: '🏪',
       color: '#2196F3',
-      features: ['Order Management', 'Inventory Tracking', 'Sales Analytics', 'Menu Management'],
-      tech: ['React Native', 'GraphQL', 'MongoDB', 'Chart.js'],
-      downloadUrl: '',
-      qrCode: '',
-      playStore: '',
-      appStore: '',
-      version: '1.0.0',
-      size: '28 MB',
+      features: ['Order Management', 'Inventory Tracking', 'Sales Analytics'],
+      tech: ['React Native', 'GraphQL', 'MongoDB'],
       screenshots: [
         'https://via.placeholder.com/200x400/2196F3/ffffff?text=Vendor+Dashboard',
         'https://via.placeholder.com/200x400/2196F3/ffffff?text=Orders',
@@ -245,28 +244,20 @@ const Portfolio = () => {
     {
       id: 'rider-app',
       title: 'Rider App',
-      description: 'Delivery rider app with GPS navigation, earnings tracking, and optimized route planning for efficient deliveries.',
+      description: 'Professional delivery rider app with GPS navigation, earnings tracking, and route optimization for efficient deliveries.',
       icon: '🚴‍♂️',
       color: '#FF9800',
-      features: ['GPS Navigation', 'Earnings Tracker', 'Route Optimization', 'Delivery History'],
-      tech: ['React Native', 'Google Maps API', 'Firebase', 'Redux'],
-      downloadUrl: '',
-      qrCode: '',
-      playStore: '',
-      appStore: '',
-      version: '1.0.0',
-      size: '22 MB',
+      features: ['GPS Navigation', 'Earnings Tracker', 'Route Optimization'],
+      tech: ['React Native', 'Google Maps API', 'Firebase'],
+      mainImage: riderAppMainImage,
       screenshots: [
-        'https://via.placeholder.com/200x400/FF9800/ffffff?text=Rider+Map',
-        'https://via.placeholder.com/200x400/FF9800/ffffff?text=Earnings',
-        'https://via.placeholder.com/200x400/FF9800/ffffff?text=Deliveries'
+        riderAppScreenshot1,
+        riderAppScreenshot2,
+        riderAppMainImage
       ],
       status: 'Active'
     }
   ]);
-
-  // Load app download URLs from backend
-  const [appsLoading, setAppsLoading] = useState(true);
 
   // Enhanced Portfolio Features
   const [currentTheme, setCurrentTheme] = useState('light');
@@ -473,39 +464,8 @@ const Portfolio = () => {
     { name: 'Recommendation Letter – Advisor', issuer: 'Professional Advisor', date: '2024', image: recommendationCert, category: 'Recognition' }
   ]);
 
-  // Fun Facts and Statistics
-  const [funFacts, setFunFacts] = useState([
-    { icon: '☕', label: 'Cups of Coffee', value: coffeeCount, color: '#8B4513' },
-    { icon: '💻', label: 'Lines of Code', value: linesOfCode, color: '#4CAF50' },
-    { icon: '🐛', label: 'Bugs Fixed', value: bugsFixed, color: '#FF5722' },
-    { icon: '🚀', label: 'Projects Launched', value: projectsCompleted, color: '#2196F3' },
-    { icon: '😊', label: 'Happy Clients', value: clientsSatisfied, color: '#FF9800' },
-    { icon: '🏆', label: 'Awards Won', value: awardsWon, color: '#FFD700' },
-    { icon: '📜', label: 'Certifications', value: certificationsEarned, color: '#9C27B0' },
-    { icon: '🌍', label: 'Countries Visited', value: countriesVisited, color: '#00BCD4' },
-    { icon: '📚', label: 'Books Read', value: booksRead, color: '#795548' },
-    { icon: '🎧', label: 'Podcasts Listened', value: podcastsListened, color: '#E91E63' },
-    { icon: '🎓', label: 'Courses Completed', value: coursesCompleted, color: '#3F51B5' },
-    { icon: '👨‍🏫', label: 'Mentorship Hours', value: mentorshipHours, color: '#009688' }
-  ]);
 
-  // Interactive Games and Easter Eggs
-  const [games, setGames] = useState([
-    { name: 'Snake Game', icon: '🐍', score: 0, highScore: 0, played: false },
-    { name: 'Memory Game', icon: '🧠', score: 0, highScore: 0, played: false },
-    { name: 'Typing Speed Test', icon: '⌨️', score: 0, highScore: 0, played: false },
-    { name: 'Code Quiz', icon: '❓', score: 0, highScore: 0, played: false },
-    { name: 'Puzzle Solver', icon: '🧩', score: 0, highScore: 0, played: false }
-  ]);
 
-  // Music Playlist
-  const [playlist, setPlaylist] = useState([
-    { title: 'Coding Vibes', artist: 'Lo-Fi Hip Hop', duration: '3:45', genre: 'Electronic' },
-    { title: 'Focus Flow', artist: 'Ambient Sounds', duration: '4:20', genre: 'Ambient' },
-    { title: 'Debug Mode', artist: 'Synthwave', duration: '3:30', genre: 'Electronic' },
-    { title: 'Algorithm Dreams', artist: 'Chillstep', duration: '4:15', genre: 'Electronic' },
-    { title: 'Binary Beats', artist: 'Techno', duration: '3:55', genre: 'Electronic' }
-  ]);
 
   // Blog Posts
   const [blogPosts, setBlogPosts] = useState([
@@ -601,41 +561,6 @@ const Portfolio = () => {
     };
 
     fetchGitHubData();
-  }, []);
-
-  // Load app download URLs from backend
-  useEffect(() => {
-    const loadAppUrls = async () => {
-      try {
-        setAppsLoading(true);
-        const response = await fetch('https://aksum-delivery-3.onrender.com/api/app-config');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.apps) {
-            // Update app projects with real download URLs
-            setAppProjects(prev => prev.map(app => {
-              const backendApp = data.apps[app.id.replace('-app', '')];
-              if (backendApp) {
-                return {
-                  ...app,
-                  downloadUrl: backendApp.url || '',
-                  version: backendApp.version || app.version,
-                  size: backendApp.size || app.size,
-                  qrCode: backendApp.url ? generateQRCodeUrl(backendApp.url) : ''
-                };
-              }
-              return app;
-            }));
-          }
-        }
-      } catch (error) {
-        console.error('Error loading app URLs:', error);
-      } finally {
-        setAppsLoading(false);
-      }
-    };
-
-    loadAppUrls();
   }, []);
 
   // Auto-rotate testimonials
@@ -895,8 +820,8 @@ const Portfolio = () => {
     {
       id: 1,
       title: "Aksum Delivery Platform",
-      description: "Full-stack delivery platform with customer, vendor, and rider apps. Features real-time tracking, payment integration, and comprehensive admin dashboard.",
-      image: "�",
+      description: "Delivery platform with customer, vendor, and rider apps.",
+      image: "🚚",
       tech: ["React Native", "Node.js", "MongoDB", "Socket.io", "GraphQL"],
       github: "https://github.com/muluken16/aksum-delivery",
       demo: "https://aksum-delivery.vercel.app",
@@ -907,8 +832,21 @@ const Portfolio = () => {
     },
     {
       id: 2,
+      title: "Rider Delivery App",
+      description: "Delivery rider app with GPS navigation and earnings tracking.",
+      image: "🚴‍♂️",
+      tech: ["React Native", "Google Maps API", "Firebase", "Redux"],
+      github: "https://github.com/muluken16/rider-delivery-app",
+      demo: "https://rider-app-demo.netlify.app",
+      status: "Active",
+      stars: 28,
+      forks: 7,
+      category: "Mobile App"
+    },
+    {
+      id: 3,
       title: "E-Commerce Platform",
-      description: "Modern e-commerce solution with advanced features like AI-powered recommendations, real-time inventory, and multi-vendor support.",
+      description: "E-commerce website with shopping cart and payments.",
       image: "🛒",
       tech: ["React", "PHP", "MySQL", "Stripe", "Redis"],
       github: "https://github.com/muluken16/ecommerce-platform",
@@ -1318,9 +1256,7 @@ const Portfolio = () => {
   const socialLinks = [
     { name: "GitHub", icon: Github, url: "https://github.com/muluken16", color: "#333" },
     { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/mule16", color: "#0077B5" },
-    { name: "Twitter", icon: Twitter, url: "https://x.com/mulukencs16", color: "#1DA1F2" },
-    { name: "Instagram", icon: Instagram, url: "https://instagram.com/mulukenmesfincs", color: "#E4405F" },
-    { name: "Facebook", icon: Facebook, url: "https://facebook.com/mulukenmesfincs", color: "#1877F2" }
+    { name: "Twitter", icon: Twitter, url: "https://x.com/mulukencs16", color: "#1DA1F2" }
   ];
 
   return (
@@ -1499,28 +1435,33 @@ const Portfolio = () => {
 
         <div style={styles.heroMainContent}>
           <div style={styles.heroTextSection}>
+            {/* Status Badge */}
             <div style={styles.heroBadge}>
               <Zap size={16} />
               Available for Opportunities
             </div>
             
+            {/* Main Title */}
             <h1 style={styles.heroTitle}>
               Hi, I'm <span style={styles.heroHighlight}>Muluken Mesfin</span>
             </h1>
             
+            {/* Dynamic Subtitle */}
             <p style={styles.heroSubtitle}>
               <span className="typewriter">{typingText || 'Full-Stack Developer & Mobile App Specialist'}</span>
             </p>
             
+            {/* Brief Description */}
             <div style={styles.heroDescription}>
-              Computer Science graduate from Wolkite University (BSc, 2023; CGPA 3.35) with a strong passion for building practical software solutions. Experienced in developing web and cross-platform mobile applications using React Native and Flutter, with solid skills in Python, JavaScript, PHP, and SQL. Comfortable working with MySQL and SQL Server, front-end technologies, and modern development tools. A fast learner and problem solver who enjoys turning ideas into reliable applications and contributing to collaborative, forward-thinking development teams.
+              Full-stack developer specializing in React, React Native, and modern web technologies. Building scalable applications with clean code and user-focused design.
             </div>
             
+            {/* Career Objective */}
             <div style={styles.heroAssumption}>
-              <strong>Career Objective:</strong> Seeking opportunities to leverage my technical skills and fresh perspective as a recent graduate to contribute to innovative software development projects, while continuing to grow as a full-stack developer in a dynamic, technology-driven environment.
+              <strong>Career Objective:</strong> Seeking opportunities to contribute to innovative software projects while growing as a full-stack developer.
             </div>
 
-            {/* Key Skills Preview */}
+            {/* Core Technologies Preview */}
             <div style={styles.heroSkillsPreview}>
               <h4 style={styles.heroSkillsTitle}>Core Technologies</h4>
               <div style={styles.heroSkillsTags}>
@@ -1534,25 +1475,7 @@ const Portfolio = () => {
               </div>
             </div>
 
-            <div style={styles.personalStats}>
-              <div style={styles.personalStat}>
-                <span style={styles.statValue}>3.35</span>
-                <span style={styles.statLabel}>CGPA</span>
-              </div>
-              <div style={styles.personalStat}>
-                <span style={styles.statValue}>2023</span>
-                <span style={styles.statLabel}>Graduate</span>
-              </div>
-              <div style={styles.personalStat}>
-                <span style={styles.statValue}>5+</span>
-                <span style={styles.statLabel}>Languages</span>
-              </div>
-              <div style={styles.personalStat}>
-                <MapPin size={18} color="#E63946" />
-                <span style={styles.statLabel}>Ethiopia</span>
-              </div>
-            </div>
-
+            {/* Call-to-Action Buttons */}
             <div style={styles.heroActions}>
               <button onClick={() => scrollToSection('apps')} style={styles.primaryBtn}>
                 <Smartphone size={20} />
@@ -1562,23 +1485,6 @@ const Portfolio = () => {
                 <Eye size={20} />
                 GitHub Projects
               </button>
-            </div>
-
-
-
-            <div style={styles.heroSocial}>
-              {socialLinks.slice(3).map((social, index) => (
-                <a 
-                  key={index}
-                  href={social.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={styles.socialLink}
-                  className="social-link"
-                >
-                  <social.icon size={20} />
-                </a>
-              ))}
             </div>
           </div>
         </div>
@@ -1756,47 +1662,9 @@ const Portfolio = () => {
             Professional mobile applications built with modern technologies
           </p>
           
-          {/* App Portfolio Stats */}
-          <div style={styles.appStats}>
-            <div style={styles.appStat}>
-              <Smartphone size={24} color="#4CAF50" />
-              <div>
-                <span style={styles.appStatNumber}>3</span>
-                <span style={styles.appStatLabel}>Mobile Apps</span>
-              </div>
-            </div>
-            <div style={styles.appStat}>
-              <Download size={24} color="#2196F3" />
-              <div>
-                <span style={styles.appStatNumber}>10K+</span>
-                <span style={styles.appStatLabel}>Downloads</span>
-              </div>
-            </div>
-            <div style={styles.appStat}>
-              <Star size={24} color="#FFD700" />
-              <div>
-                <span style={styles.appStatNumber}>4.8</span>
-                <span style={styles.appStatLabel}>Rating</span>
-              </div>
-            </div>
-            <div style={styles.appStat}>
-              <Users size={24} color="#FF9800" />
-              <div>
-                <span style={styles.appStatNumber}>5K+</span>
-                <span style={styles.appStatLabel}>Active Users</span>
-              </div>
-            </div>
-          </div>
-
           {/* App Cards */}
-          {appsLoading ? (
-            <div style={styles.loadingContainer}>
-              <div style={styles.loadingSpinner} className="loading-spinner"></div>
-              <p>Loading app portfolio...</p>
-            </div>
-          ) : (
-            <div style={styles.modernAppGrid}>
-              {appProjects.map((app, index) => (
+          <div style={styles.modernAppGrid}>
+            {appProjects.map((app, index) => (
                 <div key={app.id} className="modern-app-card" style={styles.modernAppCard}>
                   {/* App Header */}
                   <div style={styles.modernAppHeader}>
@@ -1836,38 +1704,32 @@ const Portfolio = () => {
                     ))}
                   </div>
 
-                  {/* App Metrics */}
-                  <div style={styles.modernAppMetrics}>
-                    <div style={styles.modernMetric}>
-                      <span style={styles.modernMetricLabel}>Version</span>
-                      <span style={styles.modernMetricValue}>{app.version}</span>
-                    </div>
-                    <div style={styles.modernMetric}>
-                      <span style={styles.modernMetricLabel}>Size</span>
-                      <span style={styles.modernMetricValue}>{app.size}</span>
-                    </div>
-                    <div style={styles.modernMetric}>
-                      <span style={styles.modernMetricLabel}>Rating</span>
-                      <div style={styles.modernRating}>
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={12} color="#FFD700" fill="#FFD700" />
-                        ))}
-                        <span style={styles.modernRatingText}>4.8</span>
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Screenshots Carousel */}
                   {app.screenshots && app.screenshots.length > 0 && (
                     <div style={styles.modernScreenshots}>
                       <div style={styles.modernScreenshotsContainer}>
                         {app.screenshots.map((screenshot, i) => (
-                          <div key={i} style={styles.modernScreenshotWrapper}>
+                          <div 
+                            key={i} 
+                            className="modern-screenshot-wrapper"
+                            style={styles.modernScreenshotWrapper}
+                            onClick={() => setMobilePreview({
+                              isOpen: true,
+                              images: app.screenshots,
+                              currentIndex: i,
+                              appTitle: app.title,
+                              appColor: app.color
+                            })}
+                          >
                             <img 
                               src={screenshot} 
                               alt={`${app.title} Screenshot ${i + 1}`}
+                              className="modern-screenshot"
                               style={styles.modernScreenshot}
                             />
+                            <div className="screenshot-overlay" style={styles.screenshotOverlay}>
+                              <Eye size={16} color="#fff" />
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -1880,31 +1742,64 @@ const Portfolio = () => {
                       <div style={styles.modernDownloadActions}>
                         <a 
                           href={app.downloadUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
+                          download={`${app.title.replace(' ', '_')}.apk`}
                           style={{...styles.modernPrimaryBtn, backgroundColor: app.color}}
                           className="modern-download-btn"
                         >
                           <Download size={18} />
-                          <span>Download App</span>
+                          <span>Download APK</span>
                         </a>
-                        <button style={styles.modernSecondaryBtn}>
+                        <button 
+                          onClick={() => setMobilePreview({
+                            isOpen: true,
+                            images: app.screenshots,
+                            currentIndex: 0,
+                            appTitle: app.title,
+                            appColor: app.color
+                          })}
+                          style={{...styles.modernSecondaryBtn, borderColor: app.color, color: app.color}}
+                          className="modern-preview-btn"
+                        >
                           <Eye size={18} />
-                          <span>Preview</span>
+                          <span>Preview App</span>
                         </button>
+                        <div style={styles.downloadInfo}>
+                          <div style={styles.downloadInfoItem}>
+                            <Smartphone size={16} color="#666" />
+                            <span>Android App</span>
+                          </div>
+                          <div style={styles.downloadInfoItem}>
+                            <Shield size={16} color="#666" />
+                            <span>Safe & Secure</span>
+                          </div>
+                        </div>
                       </div>
                     ) : (
-                      <div style={styles.modernComingSoon}>
-                        <Clock size={20} color="#999" />
-                        <span>Coming Soon</span>
+                      <div style={styles.modernDownloadActions}>
+                        <button 
+                          onClick={() => setMobilePreview({
+                            isOpen: true,
+                            images: app.screenshots,
+                            currentIndex: 0,
+                            appTitle: app.title,
+                            appColor: app.color
+                          })}
+                          style={{...styles.modernSecondaryBtn, borderColor: app.color, color: app.color}}
+                          className="modern-preview-btn"
+                        >
+                          <Eye size={18} />
+                          <span>Preview App</span>
+                        </button>
+                        <div style={styles.modernComingSoon}>
+                          <Clock size={20} color="#999" />
+                          <span>Download Coming Soon</span>
+                        </div>
                       </div>
                     )}
                   </div>
                 </div>
               ))}
             </div>
-          )}
-
         </div>
       </section>
 
@@ -2450,6 +2345,101 @@ const Portfolio = () => {
           </div>
         </div>
       )}
+
+      {/* Mobile Frame Preview Modal */}
+      {mobilePreview.isOpen && (
+        <div 
+          style={styles.mobilePreviewOverlay} 
+          onClick={(e) => {
+            // Only close if clicking directly on the overlay, not on child elements
+            if (e.target === e.currentTarget) {
+              setMobilePreview({...mobilePreview, isOpen: false});
+            }
+          }}
+        >
+          <div style={styles.mobilePreviewModal} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.mobileFrameHeader}>
+              <h3 style={styles.mobilePreviewTitle}>{mobilePreview.appTitle}</h3>
+              <div style={styles.imageCounter}>
+                {mobilePreview.images.length > 1 && (
+                  <span style={styles.counterText}>
+                    {mobilePreview.currentIndex + 1} / {mobilePreview.images.length}
+                  </span>
+                )}
+              </div>
+              <button 
+                onClick={() => setMobilePreview({...mobilePreview, isOpen: false})}
+                style={styles.mobilePreviewClose}
+                aria-label="Close preview"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="mobile-frame" style={styles.mobileFrame} onClick={(e) => e.stopPropagation()}>
+              <div style={styles.mobileFrameTop}>
+                <div style={styles.mobileNotch}></div>
+              </div>
+              <div className="mobile-screen" style={styles.mobileScreen} onClick={(e) => e.stopPropagation()}>
+                <img 
+                  src={mobilePreview.images[mobilePreview.currentIndex]} 
+                  alt={`${mobilePreview.appTitle} Preview`}
+                  className="mobile-screen-image"
+                  style={styles.mobileScreenImage}
+                />
+                
+                {/* Always show navigation if more than 1 image */}
+                {mobilePreview.images.length > 1 && (
+                  <>
+                    <button 
+                      onClick={() => setMobilePreview({
+                        ...mobilePreview, 
+                        currentIndex: mobilePreview.currentIndex > 0 ? mobilePreview.currentIndex - 1 : mobilePreview.images.length - 1
+                      })}
+                      className="nav-button"
+                      style={{...styles.navButton, ...styles.navButtonLeft}}
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft size={24} color="#fff" />
+                    </button>
+                    <button 
+                      onClick={() => setMobilePreview({
+                        ...mobilePreview, 
+                        currentIndex: mobilePreview.currentIndex < mobilePreview.images.length - 1 ? mobilePreview.currentIndex + 1 : 0
+                      })}
+                      className="nav-button"
+                      style={{...styles.navButton, ...styles.navButtonRight}}
+                      aria-label="Next image"
+                    >
+                      <ChevronRight size={24} color="#fff" />
+                    </button>
+                  </>
+                )}
+              </div>
+              <div style={styles.mobileFrameBottom}>
+                <div style={{...styles.mobileHomeButton, backgroundColor: mobilePreview.appColor}}></div>
+              </div>
+            </div>
+            {/* Always show dots if more than 1 image */}
+            {mobilePreview.images.length > 1 && (
+              <div style={styles.imageDots}>
+                {mobilePreview.images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setMobilePreview({...mobilePreview, currentIndex: index})}
+                    className="image-dot"
+                    style={{
+                      ...styles.imageDot,
+                      backgroundColor: index === mobilePreview.currentIndex ? mobilePreview.appColor : '#fff',
+                      opacity: index === mobilePreview.currentIndex ? 1 : 0.6
+                    }}
+                    aria-label={`Go to image ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -2771,14 +2761,14 @@ const styles = {
     margin: 0,
   },
   hero: {
-    minHeight: '100vh',
+    minHeight: '70vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     background: 'linear-gradient(135deg, #FFF5F5 0%, #FFF 50%, #F5F5F5 100%)',
-    padding: '120px 20px 80px',
-    gap: '60px',
+    padding: '80px 20px 40px',
+    gap: '30px',
     maxWidth: '1400px',
     margin: '0 auto',
     position: 'relative',
@@ -2788,7 +2778,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: '40px',
+    marginBottom: '20px',
   },
   heroPhotoContainer: {
     position: 'relative',
@@ -2838,7 +2828,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '30px',
+    gap: '20px',
     width: '100%',
   },
   heroBadge: {
@@ -3576,9 +3566,11 @@ const styles = {
   // Modern App Styles
   modernAppGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-    gap: '32px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    gap: '24px',
     marginBottom: '60px',
+    maxWidth: '1200px',
+    margin: '0 auto 60px auto',
   },
   modernAppCard: {
     backgroundColor: '#fff',
@@ -3740,6 +3732,10 @@ const styles = {
   modernScreenshotWrapper: {
     flexShrink: 0,
     position: 'relative',
+    cursor: 'pointer',
+    borderRadius: '12px',
+    overflow: 'hidden',
+    transition: 'all 0.3s ease',
   },
   modernScreenshot: {
     width: '90px',
@@ -3750,13 +3746,202 @@ const styles = {
     transition: 'all 0.3s ease',
     cursor: 'pointer',
   },
+  screenshotOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0,
+    transition: 'opacity 0.3s ease',
+    borderRadius: '16px',
+  },
+  
+  // Mobile Preview Modal Styles
+  mobilePreviewOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10000,
+    padding: '20px',
+  },
+  mobilePreviewModal: {
+    backgroundColor: 'transparent',
+    borderRadius: '0',
+    padding: '0',
+    maxWidth: 'none',
+    width: 'auto',
+    maxHeight: 'none',
+    overflow: 'visible',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  mobileFrameHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px',
+    width: '100%',
+    maxWidth: '320px',
+  },
+  imageCounter: {
+    fontSize: '14px',
+    color: '#fff',
+    fontWeight: '500',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: '6px 12px',
+    borderRadius: '20px',
+    backdropFilter: 'blur(10px)',
+  },
+  counterText: {
+    color: '#fff',
+  },
+  mobilePreviewTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    margin: 0,
+    color: '#fff',
+  },
+  mobilePreviewClose: {
+    background: 'rgba(255, 255, 255, 0.2)',
+    border: 'none',
+    cursor: 'pointer',
+    padding: '8px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.3s ease',
+    backdropFilter: 'blur(10px)',
+    color: '#fff',
+  },
+  mobileFrame: {
+    width: '320px',
+    height: '640px',
+    backgroundColor: '#1a1a1a',
+    borderRadius: '40px',
+    padding: '8px',
+    position: 'relative',
+    boxShadow: '0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+    background: 'linear-gradient(145deg, #2a2a2a, #1a1a1a)',
+  },
+  mobileFrameTop: {
+    height: '30px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  mobileNotch: {
+    width: '140px',
+    height: '24px',
+    backgroundColor: '#000',
+    borderRadius: '12px',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mobileScreen: {
+    width: '100%',
+    height: '570px',
+    backgroundColor: '#000',
+    borderRadius: '32px',
+    overflow: 'hidden',
+    position: 'relative',
+    border: '2px solid #333',
+  },
+  mobileScreenImage: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '30px',
+  },
+  mobileFrameBottom: {
+    height: '30px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mobileHomeButton: {
+    width: '40px',
+    height: '4px',
+    borderRadius: '2px',
+    backgroundColor: '#666',
+  },
+  
+  // Navigation Controls
+  navButton: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: '#4CAF50',
+    border: '2px solid #fff',
+    borderRadius: '50%',
+    width: '50px',
+    height: '50px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    zIndex: 20,
+    boxShadow: '0 4px 15px rgba(76, 175, 80, 0.4)',
+  },
+  navButtonLeft: {
+    left: '10px',
+  },
+  navButtonRight: {
+    right: '10px',
+  },
+  
+  // Image Dots
+  imageDots: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '10px',
+    marginTop: '20px',
+  },
+  imageDot: {
+    width: '10px',
+    height: '10px',
+    borderRadius: '50%',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    opacity: 0.6,
+  },
   modernDownloadSection: {
     borderTop: '1px solid #f1f5f9',
     paddingTop: '24px',
   },
   modernDownloadActions: {
     display: 'flex',
-    gap: '12px',
+    flexDirection: 'column',
+    gap: '16px',
+  },
+  downloadInfo: {
+    display: 'flex',
+    gap: '16px',
+    justifyContent: 'center',
+  },
+  downloadInfoItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    fontSize: '14px',
+    color: '#666',
   },
   modernPrimaryBtn: {
     flex: 1,
