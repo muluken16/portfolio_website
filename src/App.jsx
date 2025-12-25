@@ -221,7 +221,7 @@ const Portfolio = () => {
       description: 'Food & grocery ordering app with real-time tracking and secure payments.',
       icon: '📱',
       color: '#4CAF50',
-      features: ['Real-time Tracking', 'Secure Payments', 'Push Notifications'],
+      features: ['Real-time Track', 'Secure Pay', 'Push Notify'],
       tech: ['React Native', 'Redux', 'Socket.io'],
       mainImage: appMainImage,
       screenshots: [appScreenshot1, appScreenshot2, appScreenshot3],
@@ -234,7 +234,7 @@ const Portfolio = () => {
       description: 'Restaurant & shop management app for orders, inventory, and analytics.',
       icon: '🏪',
       color: '#2196F3',
-      features: ['Order Management', 'Inventory Tracking', 'Sales Analytics'],
+      features: ['Order Manage', 'Inventory Track', 'Sales Analytics'],
       tech: ['React Native', 'GraphQL', 'MongoDB'],
       screenshots: [
         'https://via.placeholder.com/200x400/2196F3/ffffff?text=Vendor+Dashboard',
@@ -249,7 +249,7 @@ const Portfolio = () => {
       description: 'Professional delivery rider app with GPS navigation, earnings tracking, and route optimization for efficient deliveries.',
       icon: '🚴‍♂️',
       color: '#FF9800',
-      features: ['GPS Navigation', 'Earnings Tracker', 'Route Optimization'],
+      features: ['GPS Navigate', 'Earnings Track', 'Route Optimize'],
       tech: ['React Native', 'Google Maps API', 'Firebase'],
       mainImage: riderAppMainImage,
       screenshots: [
@@ -265,7 +265,7 @@ const Portfolio = () => {
       description: 'Service marketplace connecting customers with technicians.',
       icon: '🔧',
       color: '#9C27B0',
-      features: ['Service Booking', 'Technician Matching', 'Payments'],
+      features: ['Service Book', 'Tech Matching', 'Payments'],
       tech: ['React Native', 'Expo', 'Firebase'],
       screenshots: [
         'https://via.placeholder.com/200x400/9C27B0/ffffff?text=MuyaPro+Home',
@@ -1757,7 +1757,7 @@ const Portfolio = () => {
 
                   {/* Key Features Grid */}
                   <div style={styles.modernFeaturesGrid}>
-                    {app.features.slice(0, isMobile ? 2 : 4).map((feature, i) => (
+                    {app.features.map((feature, i) => (
                       <div key={i} style={styles.modernFeatureItem}>
                         <div style={{...styles.modernFeatureIcon, backgroundColor: `${app.color}20`}}>
                           <CheckCircle size={16} color={app.color} />
@@ -3714,33 +3714,33 @@ const styles = {
   },
   modernFeaturesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-    gap: '16px',
-    marginBottom: '28px',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '12px',
+    marginBottom: '20px',
   },
   modernFeatureItem: {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
-    padding: '12px',
+    gap: '8px',
+    padding: '8px',
     backgroundColor: '#fafafa',
-    borderRadius: '12px',
+    borderRadius: '8px',
     transition: 'all 0.3s ease',
   },
   modernFeatureIcon: {
-    width: '32px',
-    height: '32px',
-    borderRadius: '8px',
+    width: '24px',
+    height: '24px',
+    borderRadius: '6px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
   },
   modernFeatureText: {
-    fontSize: '13px',
+    fontSize: '11px',
     fontWeight: '500',
     color: '#333',
-    lineHeight: 1.4,
+    lineHeight: 1.3,
   },
   modernTechStack: {
     display: 'flex',
