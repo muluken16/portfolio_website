@@ -1552,6 +1552,31 @@ const Portfolio = () => {
                     <span className={isMobile ? 'mobile-hide-description' : ''}>Ethiopia (Remote Available)</span>
                     <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Ethiopia</span>
                   </div>
+                  
+                  {/* Education in Profile Card */}
+                  <div style={{marginTop: '16px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px'}}>
+                      <GraduationCap size={16} color="#3b82f6" />
+                      <span style={{fontSize: '14px', fontWeight: '600', color: '#1e293b'}}>Education</span>
+                    </div>
+                    <div style={{fontSize: isMobile ? '12px' : '13px', color: '#475569'}}>
+                      <div style={{fontWeight: '600', marginBottom: '2px'}}>
+                        <span className={isMobile ? 'mobile-hide-description' : ''}>
+                          Bachelor of Science in Computer Science
+                        </span>
+                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                          BSc Computer Science
+                        </span>
+                      </div>
+                      <div style={{fontSize: isMobile ? '11px' : '12px', color: '#64748b'}}>
+                        Wolkite University
+                      </div>
+                      <div style={{fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginTop: '4px', display: 'flex', gap: '12px'}}>
+                        <span>2019 - 2023</span>
+                        <span className={isMobile ? 'mobile-hide-description' : ''}>CGPA: 3.35</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Quick Stats - Hide on mobile */}
@@ -1594,25 +1619,6 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Education Card - Hide on mobile */}
-              <div style={styles.aboutEducationCard} className={isMobile ? 'mobile-hide-description' : ''}>
-                <div style={styles.aboutCardHeader}>
-                  <GraduationCap size={24} color="#3b82f6" />
-                  <h4>Education</h4>
-                </div>
-                <div style={styles.aboutEducationItem}>
-                  <div style={styles.aboutEducationDegree}>
-                    Bachelor of Science in Computer Science
-                  </div>
-                  <div style={styles.aboutEducationSchool}>
-                    Wolkite University
-                  </div>
-                  <div style={styles.aboutEducationDetails}>
-                    <span style={styles.aboutEducationYear}>2019 - 2023</span>
-                    <span style={styles.aboutEducationGPA}>CGPA: 3.35</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Right Column - About Content */}
