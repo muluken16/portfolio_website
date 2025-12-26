@@ -8,6 +8,8 @@ import appScreenshot3 from './assets/deliverapp/photo_2025.jpg';
 import customerAppApk from './assets/app/customer.apk';
 // MuyaPro App APK
 import muyaproAppApk from './assets/app/muyapro.apk';
+// CV PDF
+import cvPdf from './assets/cv/muluken.pdf';
 // MuyaPro App Images
 import muyaproImage1 from './assets/muyapro/photo_2025-12-25_22-31-30.jpg';
 import muyaproImage2 from './assets/muyapro/photo_2025-12-25_22-32-32.jpg';
@@ -412,10 +414,15 @@ const Portfolio = () => {
     { name: 'MySQL Database', level: 91, icon: '🗄️', color: '#4479A1', experience: '3+ years' },
     { name: 'IT Support', level: 88, icon: '🔧', color: '#FF6B35', experience: '2+ years' },
     { name: 'System Admin', level: 85, icon: '⚙️', color: '#6C757D', experience: '2+ years' },
-    { name: 'Network Config', level: 82, icon: '🌐', color: '#0066CC', experience: '2+ years' },
-    { name: 'Linux Admin', level: 87, icon: '🐧', color: '#FCC624', experience: '2+ years' },
     { name: 'Server Setup', level: 84, icon: '🖥️', color: '#28A745', experience: '2+ years' },
-    { name: 'Troubleshooting', level: 90, icon: '🔍', color: '#DC3545', experience: '3+ years' }
+    { name: 'Troubleshooting', level: 90, icon: '🔍', color: '#DC3545', experience: '3+ years' },
+    { name: 'TypeScript', level: 88, icon: '🔷', color: '#3178C6', experience: '2+ years' },
+    { name: 'MongoDB', level: 86, icon: '🍃', color: '#47A248', experience: '2+ years' },
+    { name: 'REST APIs', level: 93, icon: '🔌', color: '#009688', experience: '3+ years' },
+    { name: 'GraphQL', level: 81, icon: '📊', color: '#E10098', experience: '2+ years' },
+    { name: 'Tailwind CSS', level: 90, icon: '🎨', color: '#06B6D4', experience: '2+ years' },
+    { name: 'Flutter', level: 83, icon: '🦋', color: '#02569B', experience: '2+ years' },
+    { name: 'PHP', level: 85, icon: '🐘', color: '#777BB4', experience: '2+ years' }
   ]);
   // Testimonials
   const [testimonials, setTestimonials] = useState([
@@ -1546,9 +1553,10 @@ const Portfolio = () => {
       {/* About Section */}
       <section id="about" style={styles.aboutSection}>
         <div style={styles.aboutContainer}>
-          <div style={styles.aboutContent}>
-            {/* Left Column - Profile & Stats */}
-            <div style={styles.aboutLeft} className={isMobile ? 'mobile-compact-profile' : ''}>
+          <div style={isMobile ? styles.aboutContentMobile : styles.aboutContent}>
+            
+            {/* Profile Section - Always First */}
+            <div style={isMobile ? styles.aboutMobileProfile : styles.aboutLeft}>
               <div style={styles.aboutProfileCard}>
                 <div style={styles.aboutImageContainer}>
                   <img 
@@ -1569,160 +1577,100 @@ const Portfolio = () => {
                   <p style={styles.aboutProfileTitle}>Full-Stack Developer</p>
                   <div style={styles.aboutProfileLocation}>
                     <MapPin size={16} color="#64748b" />
-                    <span className={isMobile ? 'mobile-hide-description' : ''}>Ethiopia (Remote Available)</span>
-                    <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Ethiopia</span>
-                  </div>
-                  
-                  {/* Education in Profile Card */}
-                  <div style={{marginTop: '16px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0'}}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px'}}>
-                      <GraduationCap size={16} color="#3b82f6" />
-                      <span style={{fontSize: '14px', fontWeight: '600', color: '#1e293b'}}>Education</span>
-                    </div>
-                    <div style={{fontSize: isMobile ? '12px' : '13px', color: '#475569'}}>
-                      <div style={{fontWeight: '600', marginBottom: '2px'}}>
-                        <span className={isMobile ? 'mobile-hide-description' : ''}>
-                          Bachelor of Science in Computer Science
-                        </span>
-                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                          BSc Computer Science
-                        </span>
-                      </div>
-                      <div style={{fontSize: isMobile ? '11px' : '12px', color: '#64748b'}}>
-                        Wolkite University
-                      </div>
-                      <div style={{fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginTop: '4px', display: 'flex', gap: '12px'}}>
-                        <span>2019 - 2023</span>
-                        <span className={isMobile ? 'mobile-hide-description' : ''}>CGPA: 3.35</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Stats - Hide on mobile */}
-                <div style={styles.aboutQuickStats} className={isMobile ? 'mobile-hide-description' : ''}>
-                  <div style={styles.aboutQuickStat}>
-                    <div style={styles.aboutStatNumber}>2023</div>
-                    <div style={styles.aboutStatLabel}>Graduate</div>
-                  </div>
-                  <div style={styles.aboutQuickStat}>
-                    <div style={styles.aboutStatNumber}>3.35</div>
-                    <div style={styles.aboutStatLabel}>CGPA</div>
-                  </div>
-                  <div style={styles.aboutQuickStat}>
-                    <div style={styles.aboutStatNumber}>10+</div>
-                    <div style={styles.aboutStatLabel}>Projects</div>
+                    <span>Ethiopia (Remote Available)</span>
                   </div>
                 </div>
               </div>
-
-              {/* Professional Values - Moved to left side */}
-              <div style={styles.aboutValues} className={isMobile ? 'mobile-hide-description' : ''}>
-                <h4 style={styles.aboutValuesTitle}>Professional Values</h4>
-                <div style={styles.aboutValuesList}>
-                  <div style={styles.aboutValue}>
-                    <Target size={16} color="#3b82f6" />
-                    <span>Quality-focused development</span>
-                  </div>
-                  <div style={styles.aboutValue}>
-                    <Users size={16} color="#10b981" />
-                    <span>Collaborative teamwork</span>
-                  </div>
-                  <div style={styles.aboutValue}>
-                    <Lightbulb size={16} color="#f59e0b" />
-                    <span>Continuous learning</span>
-                  </div>
-                  <div style={styles.aboutValue}>
-                    <Rocket size={16} color="#ef4444" />
-                    <span>Innovation-driven solutions</span>
-                  </div>
-                </div>
-              </div>
-
             </div>
 
-            {/* Right Column - About Content */}
-            <div style={styles.aboutRight}>
+            {/* Education Section - Second on Mobile */}
+            <div style={isMobile ? styles.aboutMobileEducation : styles.aboutEducationDesktop}>
+              <div style={styles.educationCard}>
+                <div style={styles.educationHeader}>
+                  <GraduationCap size={24} color="#3b82f6" />
+                  <h3 style={styles.educationTitle}>Education</h3>
+                </div>
+                <div style={styles.educationContent}>
+                  <div style={styles.educationDegree}>
+                    Bachelor of Science in Computer Science
+                  </div>
+                  <div style={styles.educationUniversity}>
+                    Wolkite University
+                  </div>
+                  <div style={styles.educationDetails}>
+                    <span>2019 - 2023</span>
+                    <span>CGPA: 3.35</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* About Content - Third on Mobile */}
+            <div style={isMobile ? styles.aboutMobileContent : styles.aboutRight}>
               <div style={styles.aboutHeader}>
                 <h2 style={styles.aboutTitle}>About Me</h2>
                 <div style={styles.aboutSubtitle}>
-                  <span className={isMobile ? 'mobile-hide-description' : ''}>
-                    Passionate about creating innovative digital solutions that make a real impact
-                  </span>
-                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                    Full-Stack Developer & Mobile App Specialist
-                  </span>
+                  Passionate about creating innovative digital solutions that make a real impact
                 </div>
               </div>
 
               <div style={styles.aboutDescription}>
                 <div style={styles.aboutParagraph}>
-                  <span className={isMobile ? 'mobile-hide-description' : ''}>
-                    I'm a recent Computer Science graduate from Wolkite University with a strong passion for 
-                    building practical software solutions. My journey in technology has been driven by curiosity 
-                    and a desire to create applications that solve real-world problems.
-                  </span>
-                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                    Computer Science graduate specializing in React Native, JavaScript, and modern web technologies.
-                  </span>
+                  I'm a recent Computer Science graduate from Wolkite University with a strong passion for 
+                  building practical software solutions. My journey in technology has been driven by curiosity 
+                  and a desire to create applications that solve real-world problems.
                 </div>
                 
-                <div style={styles.aboutParagraph} className={isMobile ? 'mobile-hide-description' : ''}>
+                <div style={styles.aboutParagraph}>
                   With hands-on experience in developing web and cross-platform mobile applications, I specialize 
                   in React Native and Flutter for mobile development, while leveraging Python, JavaScript, PHP, 
-                  and SQL for backend solutions. I'm comfortable working with various databases including MySQL 
-                  and SQL Server.
-                </div>
-
-                <div style={styles.aboutParagraph} className={isMobile ? 'mobile-hide-description' : ''}>
-                  As a fast learner and problem solver, I enjoy collaborating with forward-thinking development 
-                  teams and turning innovative ideas into reliable, scalable applications. I'm always eager to 
-                  take on new challenges and contribute to projects that make a difference.
+                  and SQL for backend solutions.
                 </div>
               </div>
 
-              {/* Key Highlights - Very small and compact */}
+              {/* Key Highlights */}
               <div style={styles.aboutHighlights}>
-                <h4 style={{...styles.aboutHighlightsTitle, fontSize: isMobile ? '14px' : '16px', marginBottom: isMobile ? '8px' : '12px'}}>
-                  <span className={isMobile ? 'mobile-hide-description' : ''}>Key Highlights</span>
-                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>Skills</span>
-                </h4>
-                <div style={{...styles.aboutHighlightsList, gap: isMobile ? '8px' : '12px'}}>
-                  <div style={{...styles.aboutHighlightItem, padding: isMobile ? '8px' : '12px', minHeight: 'auto'}}>
-                    <Code size={isMobile ? 16 : 18} color="#3b82f6" />
-                    <div style={{textAlign: isMobile ? 'center' : 'left'}}>
-                      <strong style={{fontSize: isMobile ? '12px' : '14px'}}>Full-Stack</strong>
-                      <p style={{fontSize: isMobile ? '10px' : '12px', margin: 0, lineHeight: 1.2}}>
-                        <span className={isMobile ? 'mobile-hide-description' : ''}>End-to-end application development with modern technologies</span>
-                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React, Node.js</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div style={{...styles.aboutHighlightItem, padding: isMobile ? '8px' : '12px', minHeight: 'auto'}}>
-                    <Smartphone size={isMobile ? 16 : 18} color="#10b981" />
-                    <div style={{textAlign: isMobile ? 'center' : 'left'}}>
-                      <strong style={{fontSize: isMobile ? '12px' : '14px'}}>Mobile Apps</strong>
-                      <p style={{fontSize: isMobile ? '10px' : '12px', margin: 0, lineHeight: 1.2}}>
-                        <span className={isMobile ? 'mobile-hide-description' : ''}>Cross-platform mobile apps with React Native & Flutter</span>
-                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>React Native</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-description' : ''}>
-                    <Database size={18} color="#f59e0b" />
+                <h4 style={styles.aboutHighlightsTitle}>Key Skills</h4>
+                <div style={styles.aboutHighlightsList}>
+                  <div style={styles.aboutHighlightItem}>
+                    <Code size={18} color="#3b82f6" />
                     <div>
-                      <strong style={{fontSize: '14px'}}>Database</strong>
-                      <p style={{fontSize: '12px', margin: 0, lineHeight: 1.2}}>MySQL, SQL Server</p>
+                      <strong>Full-Stack Development</strong>
+                      <p>React, Node.js, JavaScript</p>
                     </div>
                   </div>
-                  <div style={styles.aboutHighlightItem} className={isMobile ? 'mobile-hide-description' : ''}>
-                    <Users size={18} color="#ef4444" />
+                  <div style={styles.aboutHighlightItem}>
+                    <Smartphone size={18} color="#10b981" />
                     <div>
-                      <strong style={{fontSize: '14px'}}>Collaboration</strong>
-                      <p style={{fontSize: '12px', margin: 0, lineHeight: 1.2}}>Team communication</p>
+                      <strong>Mobile Development</strong>
+                      <p>React Native, Flutter</p>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* CV Download Button */}
+              <div style={styles.cvDownloadSection}>
+                <a 
+                  href={cvPdf} 
+                  download="Muluken_Tesfaye_CV.pdf"
+                  style={styles.cvDownloadButton}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 8px 25px rgba(37, 99, 235, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.2)';
+                  }}
+                >
+                  <Download size={isMobile ? 18 : 20} />
+                  <span style={styles.cvDownloadText}>
+                    Download My Resume
+                  </span>
+                </a>
               </div>
 
             </div>
@@ -1993,29 +1941,33 @@ const Portfolio = () => {
             Programming languages, IT support, database administration, and system management skills
           </p>
           
-          {/* Compact Skills Grid */}
-          <div style={styles.compactSkillsGrid}>
-            {topSkills.map((skill, index) => (
-              <div key={index} style={styles.compactSkillCard}>
-                <div style={styles.compactSkillHeader}>
-                  <span style={styles.compactSkillIcon}>{skill.icon}</span>
-                  <h3 style={styles.compactSkillName}>{skill.name}</h3>
-                </div>
-                <div style={styles.compactSkillBar}>
-                  <div 
-                    style={{
-                      ...styles.compactSkillProgress,
-                      width: `${skill.level}%`,
-                      backgroundColor: skill.color
-                    }}
-                  />
-                </div>
-                <div style={styles.compactSkillMeta}>
-                  <span style={styles.compactSkillLevel}>{skill.level}%</span>
-                  <span style={styles.compactSkillExperience}>{skill.experience}</span>
-                </div>
+          {/* Skills Display */}
+          <div style={styles.skillsScrollContainer}>
+            <div style={styles.skillsRow}>
+              <div style={styles.skillsRowContent} className="skills-row-content">
+                {topSkills.map((skill, index) => (
+                  <div key={`skill-${index}`} style={styles.scrollingSkillCard}>
+                    <div style={styles.skillCardHeader}>
+                      <span style={styles.skillIcon}>{skill.icon}</span>
+                      <h3 style={styles.skillName}>{skill.name}</h3>
+                    </div>
+                    <div style={styles.skillBar}>
+                      <div 
+                        style={{
+                          ...styles.skillProgress,
+                          width: `${skill.level}%`,
+                          backgroundColor: skill.color
+                        }}
+                      />
+                    </div>
+                    <div style={styles.skillMeta}>
+                      <span style={styles.skillLevel}>{skill.level}%</span>
+                      <span style={styles.skillExperience}>{skill.experience}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -4134,64 +4086,86 @@ const styles = {
     fontWeight: '500',
   },
   
-  // Compact Skills Styles
-  compactSkillsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-    gap: '20px',
-    maxWidth: '800px',
-    margin: '0 auto',
+  // Auto-Scrolling Skills Styles
+  skillsScrollContainer: {
+    width: '100%',
+    overflow: 'hidden',
+    marginTop: '40px',
   },
-  compactSkillCard: {
+  
+  skillsRow: {
+    display: 'flex',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  
+  skillsRowContent: {
+    display: 'flex',
+    gap: '10px',
+    minWidth: 'fit-content',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  
+  scrollingSkillCard: {
+    minWidth: '120px',
     backgroundColor: '#fff',
-    borderRadius: '16px',
-    padding: '24px',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
-    border: '1px solid rgba(0,0,0,0.04)',
-    transition: 'all 0.3s ease',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.06)',
+    border: '1px solid #e2e8f0',
     textAlign: 'center',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   },
-  compactSkillHeader: {
+  
+  skillCardHeader: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '12px',
-    marginBottom: '16px',
+    gap: '4px',
+    marginBottom: '8px',
   },
-  compactSkillIcon: {
-    fontSize: '32px',
+  
+  skillIcon: {
+    fontSize: '20px',
   },
-  compactSkillName: {
-    fontSize: '16px',
-    fontWeight: '700',
-    color: '#1a1a1a',
+  
+  skillName: {
+    fontSize: '12px',
+    fontWeight: '600',
+    color: '#1e293b',
     margin: 0,
   },
-  compactSkillBar: {
+  
+  skillBar: {
     width: '100%',
-    height: '6px',
-    backgroundColor: '#f1f5f9',
-    borderRadius: '3px',
+    height: '4px',
+    backgroundColor: '#e2e8f0',
+    borderRadius: '2px',
     overflow: 'hidden',
-    marginBottom: '12px',
+    marginBottom: '6px',
   },
-  compactSkillProgress: {
+  
+  skillProgress: {
     height: '100%',
-    borderRadius: '3px',
+    borderRadius: '2px',
     transition: 'width 1.5s ease-in-out',
   },
-  compactSkillMeta: {
+  
+  skillMeta: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  compactSkillLevel: {
-    fontSize: '14px',
-    fontWeight: '700',
+  
+  skillLevel: {
+    fontSize: '10px',
+    fontWeight: '600',
     color: '#1e293b',
   },
-  compactSkillExperience: {
-    fontSize: '12px',
+  
+  skillExperience: {
+    fontSize: '8px',
     color: '#64748b',
     fontWeight: '500',
   },
@@ -5112,6 +5086,80 @@ const styles = {
     gap: '48px',
     alignItems: 'start',
   },
+
+  // Mobile-First Layout
+  aboutContentMobile: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+  },
+
+  aboutMobileProfile: {
+    width: '100%',
+    marginBottom: '16px',
+  },
+
+  aboutMobileEducation: {
+    width: '100%',
+    marginBottom: '16px',
+  },
+
+  aboutMobileContent: {
+    width: '100%',
+  },
+
+  // Education Styles
+  educationCard: {
+    background: '#fff',
+    borderRadius: '16px',
+    padding: '24px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    border: '1px solid #e2e8f0',
+  },
+
+  educationHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    marginBottom: '16px',
+  },
+
+  educationTitle: {
+    fontSize: '20px',
+    fontWeight: '700',
+    color: '#1e293b',
+    margin: 0,
+  },
+
+  educationContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+
+  educationDegree: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#1e293b',
+  },
+
+  educationUniversity: {
+    fontSize: '14px',
+    color: '#64748b',
+    fontWeight: '500',
+  },
+
+  educationDetails: {
+    display: 'flex',
+    gap: '16px',
+    fontSize: '13px',
+    color: '#64748b',
+    marginTop: '8px',
+  },
+
+  aboutEducationDesktop: {
+    display: 'none',
+  },
   aboutLeft: {
     display: 'flex',
     flexDirection: 'column',
@@ -5330,6 +5378,38 @@ const styles = {
     fontWeight: '500',
     color: '#374151',
     transition: 'all 0.3s ease',
+  },
+
+  // CV Download Section Styles
+  cvDownloadSection: {
+    marginTop: '24px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  cvDownloadButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '12px',
+    padding: '14px 28px',
+    background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+    color: 'white',
+    textDecoration: 'none',
+    borderRadius: '12px',
+    fontWeight: '600',
+    fontSize: '16px',
+    boxShadow: '0 4px 15px rgba(37, 99, 235, 0.2)',
+    transition: 'all 0.3s ease',
+    border: 'none',
+    cursor: 'pointer',
+    transform: 'translateY(0)',
+  },
+
+  cvDownloadText: {
+    fontSize: '16px',
+    fontWeight: '600',
+    letterSpacing: '0.5px',
   },
 };
 

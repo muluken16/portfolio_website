@@ -1879,3 +1879,106 @@ body {
 .mobile-screen-image:hover {
   opacity: 0.9;
 }
+
+/* CV Download Button Responsive Styles */
+@media (max-width: 768px) {
+  .cv-download-section {
+    margin-top: 16px !important;
+  }
+  
+  .cv-download-button {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    gap: 8px !important;
+  }
+  
+  .cv-download-text {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cv-download-button {
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+  }
+  
+  .cv-download-text {
+    font-size: 13px !important;
+  }
+}
+/* Skills Row Static Display */
+.skills-row-content {
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+/* Skills Card Hover Effects */
+.scrolling-skill-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2) !important;
+  z-index: 10;
+}
+
+/* Smooth transitions */
+.scrolling-skill-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Responsive Skills Scrolling */
+@media (max-width: 768px) {
+  .skills-scroll-container {
+    margin-top: 20px !important;
+  }
+  
+  .scrolling-skill-card {
+    min-width: 100px !important;
+    padding: 8px !important;
+  }
+  
+  .skill-icon {
+    font-size: 16px !important;
+  }
+  
+  .skill-name {
+    font-size: 10px !important;
+  }
+  
+  .skill-level {
+    font-size: 9px !important;
+  }
+  
+  .skill-experience {
+    font-size: 7px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrolling-skill-card {
+    min-width: 90px !important;
+    padding: 6px !important;
+  }
+  
+  .skill-icon {
+    font-size: 14px !important;
+  }
+  
+  .skill-name {
+    font-size: 9px !important;
+  }
+  
+  .skill-level {
+    font-size: 8px !important;
+  }
+  
+  .skill-experience {
+    font-size: 6px !important;
+  }
+  
+  .skill-bar {
+    height: 3px !important;
+  }
+}
