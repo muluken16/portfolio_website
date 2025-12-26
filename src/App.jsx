@@ -2162,18 +2162,25 @@ const Portfolio = () => {
             <p>I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!</p>
             
             <div style={styles.contactMethods}>
-              <a href="mailto:mulukenmesfin@gmail.com" style={styles.contactMethod}>
+              <a href="mailto:mulukencs16@gmail.com" style={styles.contactMethod}>
                 <Mail size={24} color="#E63946" />
                 <div>
                   <h4>Email</h4>
-                  <p>mulukenmesfin@gmail.com</p>
+                  <p>mulukencs16@gmail.com</p>
                 </div>
               </a>
-              <a href="tel:+251900000000" style={styles.contactMethod}>
+              <a href="tel:+251918490881" style={styles.contactMethod}>
                 <Phone size={24} color="#4CAF50" />
                 <div>
                   <h4>Phone</h4>
-                  <p>+251 9XX XXX XXX</p>
+                  <p>+251 918 490 881</p>
+                </div>
+              </a>
+              <a href="https://t.me/Fullday16" style={styles.contactMethod} target="_blank" rel="noopener noreferrer">
+                <MessageCircle size={24} color="#0088cc" />
+                <div>
+                  <h4>Telegram</h4>
+                  <p>@Fullday16</p>
                 </div>
               </a>
               <div style={styles.contactMethod}>

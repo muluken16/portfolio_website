@@ -218,7 +218,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Muluken Tesfaye**
 - GitHub: [@muluken16](https://github.com/muluken16)
 - LinkedIn: [Muluken Tesfaye](https://linkedin.com/in/muluken-tesfaye)
-- Email: mulukentesfaye16@gmail.com
+- Email: mulukencs16@gmail.com
+- Phone: +251 918 490 881
+- Telegram: [@Fullday16](https://t.me/Fullday16)
 
 ## 🙏 Acknowledgments
 
