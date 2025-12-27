@@ -1579,33 +1579,60 @@ const Portfolio = () => {
                     <MapPin size={16} color="#64748b" />
                     <span>Ethiopia (Remote Available)</span>
                   </div>
+                  
+                  {/* Education in Profile Card */}
+                  <div style={{marginTop: '16px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px'}}>
+                      <GraduationCap size={16} color="#3b82f6" />
+                      <span style={{fontSize: '14px', fontWeight: '600', color: '#1e293b'}}>Education</span>
+                    </div>
+                    <div style={{fontSize: isMobile ? '12px' : '13px', color: '#475569'}}>
+                      <div style={{fontWeight: '600', marginBottom: '2px'}}>
+                        <span className={isMobile ? 'mobile-hide-description' : ''}>
+                          Bachelor of Science in Computer Science
+                        </span>
+                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                          BSc Computer Science
+                        </span>
+                      </div>
+                      <div style={{fontSize: isMobile ? '11px' : '12px', color: '#64748b'}}>
+                        Wolkite University
+                      </div>
+                      <div style={{fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginTop: '4px', display: 'flex', gap: '12px'}}>
+                        <span>2019 - 2023</span>
+                        <span className={isMobile ? 'mobile-hide-description' : ''}>CGPA: 3.35</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* CV Download Button */}
+                  <div style={{...styles.cvDownloadSection, marginTop: '12px', marginBottom: '0px'}}>
+                    <a 
+                      href={cvPdf} 
+                      download="Muluken_Tesfaye_CV.pdf"
+                      style={{...styles.cvDownloadButton, padding: '8px 16px', fontSize: '13px'}}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
+                        e.target.style.transform = 'translateY(-2px)';
+                        e.target.style.boxShadow = '0 8px 25px rgba(37, 99, 235, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                        e.target.style.transform = 'translateY(0)';
+                        e.target.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.2)';
+                      }}
+                    >
+                      <Download size={14} />
+                      <span style={{...styles.cvDownloadText, fontSize: '13px'}}>
+                        Download CV
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Education Section - Second on Mobile */}
-            <div style={isMobile ? styles.aboutMobileEducation : styles.aboutEducationDesktop}>
-              <div style={styles.educationCard}>
-                <div style={styles.educationHeader}>
-                  <GraduationCap size={24} color="#3b82f6" />
-                  <h3 style={styles.educationTitle}>Education</h3>
-                </div>
-                <div style={styles.educationContent}>
-                  <div style={styles.educationDegree}>
-                    Bachelor of Science in Computer Science
-                  </div>
-                  <div style={styles.educationUniversity}>
-                    Wolkite University
-                  </div>
-                  <div style={styles.educationDetails}>
-                    <span>2019 - 2023</span>
-                    <span>CGPA: 3.35</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* About Content - Third on Mobile */}
+            {/* About Content - Second on Mobile */}
             <div style={isMobile ? styles.aboutMobileContent : styles.aboutRight}>
               <div style={styles.aboutHeader}>
                 <h2 style={styles.aboutTitle}>About Me</h2>
@@ -1647,30 +1674,6 @@ const Portfolio = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* CV Download Button */}
-              <div style={styles.cvDownloadSection}>
-                <a 
-                  href={cvPdf} 
-                  download="Muluken_Tesfaye_CV.pdf"
-                  style={styles.cvDownloadButton}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
-                    e.target.style.transform = 'translateY(-2px)';
-                    e.target.style.boxShadow = '0 8px 25px rgba(37, 99, 235, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.2)';
-                  }}
-                >
-                  <Download size={isMobile ? 18 : 20} />
-                  <span style={styles.cvDownloadText}>
-                    Download My Resume
-                  </span>
-                </a>
               </div>
 
             </div>
@@ -3184,7 +3187,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
-    backgroundColor: '#E63946',
+    backgroundColor: '#10b981',
     color: '#fff',
     padding: '10px 16px',
     borderRadius: '8px',
@@ -3200,8 +3203,8 @@ const styles = {
     alignItems: 'center',
     gap: '6px',
     backgroundColor: 'transparent',
-    color: '#E63946',
-    border: '2px solid #E63946',
+    color: '#10b981',
+    border: '2px solid #10b981',
     padding: '8px 16px',
     borderRadius: '8px',
     textDecoration: 'none',
@@ -3222,7 +3225,7 @@ const styles = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '10px',
-    backgroundColor: '#333',
+    backgroundColor: '#10b981',
     color: '#fff',
     padding: '15px 30px',
     borderRadius: '50px',
@@ -5078,19 +5081,19 @@ const styles = {
 
   // About Section Styles
   aboutSection: {
-    padding: '80px 0',
+    padding: '60px 0',
     background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
     position: 'relative',
   },
   aboutContainer: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '0 24px',
+    padding: '0 20px',
   },
   aboutContent: {
     display: 'grid',
     gridTemplateColumns: '1fr 2fr',
-    gap: '48px',
+    gap: '32px',
     alignItems: 'start',
   },
 
@@ -5098,12 +5101,12 @@ const styles = {
   aboutContentMobile: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '24px',
+    gap: '16px',
   },
 
   aboutMobileProfile: {
     width: '100%',
-    marginBottom: '16px',
+    marginBottom: '12px',
   },
 
   aboutMobileEducation: {
