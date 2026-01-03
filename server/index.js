@@ -13,13 +13,30 @@ const __dirname = path.dirname(__filename);
 
 // Disable Mongoose buffering globally to prevent hung requests
 mongoose.set('bufferCommands', false);
+mongoose.set('bufferMaxEntries', 0);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+    });
+});
+
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+        ? ['https://your-render-app.onrender.com', 'https://muluken16.github.io'] 
+        : ['http://localhost:5173', 'http://localhost:3000'],
+    credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static files from React build (production)
 if (process.env.NODE_ENV === 'production') {
@@ -35,8 +52,12 @@ mongoose.connection.on('error', (err) => console.error('❌ MongoDB connection e
 mongoose.connection.on('disconnected', () => console.log('⚠️ MongoDB disconnected'));
 
 mongoose.connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 10000, // Increased timeout
     socketTimeoutMS: 45000,
+    maxPoolSize: 10, // Maintain up to 10 socket connections
+    serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    family: 4 // Use IPv4, skip trying IPv6
 })
     .then(() => console.log('✅ Connected to MongoDB Atlas'))
     .catch(err => {

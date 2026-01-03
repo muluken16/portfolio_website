@@ -11,6 +11,8 @@
     "build:server": "cd server && npm install",
     "build:all": "npm run build && npm run build:server",
     "start": "cd server && node index.js",
+    "render:build": "npm install && npm run build && cd server && npm install",
+    "render:start": "cd server && npm start",
     "lint": "eslint .",
     "preview": "vite preview"
   },
