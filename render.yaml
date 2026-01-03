@@ -3,8 +3,9 @@ services:
     name: portfolio-backend
     env: node
     plan: free
-    buildCommand: cd server && npm install
-    startCommand: cd server && npm start
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -16,7 +17,7 @@ services:
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
-    healthCheckPath: /api/debug/ip
+    healthCheckPath: /health
     
   - type: static
     name: portfolio-frontend

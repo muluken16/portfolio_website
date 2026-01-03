@@ -11,18 +11,21 @@
    - **Environment**: `Node`
    - **Region**: Choose closest to your users
    - **Branch**: `main`
-   - **Root Directory**: `server`
+   - **Root Directory**: `server` (IMPORTANT: Set this to server folder)
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
+   - **Node Version**: `18` (in Advanced settings)
 
 ### 2. Environment Variables (Backend)
 Add these in Render Dashboard → Settings → Environment:
 ```
 NODE_ENV=production
-MONGODB_URI=mongodb+srv://mulukencs16_db_user:zEAR8WhNgZTWkiIs@cluster0.zxapvxa.mongodb.net/portfolio?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://mulukencs16_db_user:<db_password>@cluster0.zxapvxa.mongodb.net/portfolio?retryWrites=true&w=majority
 GEMINI_API_KEY=AIzaSyA4kb3c98zV-3GFJD-AYpYf-uzbXJOzqm0
 ADMIN_PASSWORD=your_secure_password
 ```
+
+**Important**: Replace `<db_password>` with your actual MongoDB Atlas database password.
 
 ### 3. Frontend Deployment (Static Site)
 1. Click "New +" → "Static Site"
@@ -77,13 +80,23 @@ const API_BASE_URL = process.env.NODE_ENV === 'production'
 
 ## 🚨 Common Issues & Solutions
 
+### "Cannot find package 'express'" Error
+- **Cause**: Render not installing dependencies in correct directory
+- **Solution**: 
+  1. Set **Root Directory** to `server` in Render dashboard
+  2. Use build command: `npm install` (not `cd server && npm install`)
+  3. Use start command: `npm start` (not `cd server && npm start`)
+  4. Ensure Node version is set to 18+ in Advanced settings
+
 ### Backend Takes Long to Respond
 - **Cause**: Service sleeping on free tier
 - **Solution**: Use keep-alive service or upgrade plan
 
 ### MongoDB Connection Errors
-- **Cause**: IP not whitelisted
-- **Solution**: Add `0.0.0.0/0` to Atlas Network Access
+- **Cause**: IP not whitelisted or wrong password
+- **Solution**: 
+  1. Add `0.0.0.0/0` to Atlas Network Access
+  2. Verify password in connection string (replace `<db_password>`)
 
 ### Build Failures
 - **Cause**: Missing dependencies or wrong Node version
