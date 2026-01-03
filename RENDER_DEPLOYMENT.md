@@ -11,9 +11,9 @@
    - **Environment**: `Node`
    - **Region**: Choose closest to your users
    - **Branch**: `main`
-   - **Root Directory**: `server` (IMPORTANT: Set this to server folder)
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
+   - **Root Directory**: Leave EMPTY (deploy from root)
+   - **Build Command**: `npm install && cd server && npm install`
+   - **Start Command**: `cd server && npm start`
    - **Node Version**: `18` (in Advanced settings)
 
 ### 2. Environment Variables (Backend)
@@ -81,12 +81,12 @@ const API_BASE_URL = process.env.NODE_ENV === 'production'
 ## 🚨 Common Issues & Solutions
 
 ### "Cannot find package 'express'" Error
-- **Cause**: Render not installing dependencies in correct directory
+- **Cause**: Dependencies not installed in server directory
 - **Solution**: 
-  1. Set **Root Directory** to `server` in Render dashboard
-  2. Use build command: `npm install` (not `cd server && npm install`)
-  3. Use start command: `npm start` (not `cd server && npm start`)
-  4. Ensure Node version is set to 18+ in Advanced settings
+  1. **CLEAR Root Directory** field (leave empty) in Render dashboard
+  2. Use build command: `npm install && cd server && npm install`
+  3. Use start command: `cd server && npm start`
+  4. This installs dependencies in both root and server folders
 
 ### Backend Takes Long to Respond
 - **Cause**: Service sleeping on free tier
