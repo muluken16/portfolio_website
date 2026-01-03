@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AIChatbot from './components/AIChatbot.jsx';
+import AdminDashboard from './components/AdminDashboard.jsx';
 import profileImage from './assets/DSC_0059.JPG';
 import appMainImage from './assets/deliverapp/image.png';
 import appScreenshot1 from './assets/deliverapp/photo_2025-12-18.jpg';
@@ -27,17 +29,17 @@ import digitalMarketingCert from './assets/Certifications & Training/Digital Mar
 import linuxCert from './assets/Certifications & Training/NDG Essential Linux.jpg';
 import recommendationCert from './assets/Certifications & Training/Recommendation Letter – Advisor.jpg';
 import redHatCert from './assets/Certifications & Training/Red Hat.jpg';
-import { 
-  User, 
-  Code, 
-  Briefcase, 
-  GraduationCap, 
-  Award, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Github, 
-  Linkedin, 
+import {
+  User,
+  Code,
+  Briefcase,
+  GraduationCap,
+  Award,
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
   Download,
   ExternalLink,
   Database,
@@ -193,7 +195,15 @@ const Portfolio = () => {
   const [touchEnd, setTouchEnd] = useState(null);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [orientation, setOrientation] = useState(window.innerHeight > window.innerWidth ? 'portrait' : 'landscape');
-  
+  const [showAdmin, setShowAdmin] = useState(false);
+
+  // Admin URL check
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === 'true' || window.location.pathname === '/admin') {
+      setShowAdmin(true);
+    }
+  }, []);
   // Image Popup Modal State
   const [imagePopup, setImagePopup] = useState({
     isOpen: false,
@@ -201,7 +211,7 @@ const Portfolio = () => {
     title: '',
     issuer: ''
   });
-  
+
   // Mobile Frame Preview State
   const [mobilePreview, setMobilePreview] = useState({
     isOpen: false,
@@ -210,7 +220,7 @@ const Portfolio = () => {
     appTitle: '',
     appColor: '#4CAF50'
   });
-  
+
   // GitHub Integration State
   const [githubRepos, setGithubRepos] = useState([]);
   const [githubLoading, setGithubLoading] = useState(true);
@@ -221,6 +231,8 @@ const Portfolio = () => {
     following: 0,
     stars: 0
   });
+  const [showMoreProjects, setShowMoreProjects] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
 
   // App Development Portfolio State
   const [appProjects, setAppProjects] = useState([
@@ -246,9 +258,10 @@ const Portfolio = () => {
       features: ['Order Manage', 'Sales Analytics'],
       tech: ['React Native', 'GraphQL', 'MongoDB'],
       screenshots: [
-        'https://via.placeholder.com/200x400/2196F3/ffffff?text=Vendor+Dashboard',
-        'https://via.placeholder.com/200x400/2196F3/ffffff?text=Orders',
-        'https://via.placeholder.com/200x400/2196F3/ffffff?text=Analytics'
+        // Using data URLs instead of external placeholder service
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDIwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMjE5NkYzIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2Ij5WZW5kb3IgRGFzaGJvYXJkPC90ZXh0Pgo8L3N2Zz4K',
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDIwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMjE5NkYzIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2Ij5PcmRlcnM8L3RleHQ+Cjwvc3ZnPgo=',
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDIwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMjE5NkYzIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2Ij5BbmFseXRpY3M8L3RleHQ+Cjwvc3ZnPgo='
       ],
       status: 'Coming Soon'
     },
@@ -289,6 +302,30 @@ const Portfolio = () => {
       status: 'Active'
     }
   ]);
+
+  const [galleryItems, setGalleryItems] = useState([
+    { _id: '1', src: profileImage, alt: 'Profile 1', type: 'profile' },
+    { _id: '2', src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRTYzOTQ2Ii8+Cjx0ZXh0IHg9IjUwIiB5PSI1NSIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiPldvcms8L3RleHQ+Cjwvc3ZnPgo=", alt: 'Work Setup', type: 'profile' },
+    { _id: '3', src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMjE5NkYzIi8+Cjx0ZXh0IHg9IjUwIiB5PSI1NSIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiPkNvZGU8L3RleHQ+Cjwvc3ZnPgo=", alt: 'Coding', type: 'profile' }
+  ]);
+
+  // Fetch gallery items
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const response = await fetch('/api/gallery');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.length > 0) {
+            setGalleryItems(data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching gallery:', error);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   // Enhanced Portfolio Features
   const [currentTheme, setCurrentTheme] = useState('light');
@@ -430,7 +467,7 @@ const Portfolio = () => {
       name: 'Sarah Johnson',
       role: 'CEO, TechStart Inc.',
       company: 'TechStart Inc.',
-      image: 'https://via.placeholder.com/80x80/4CAF50/ffffff?text=SJ',
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSI0MCIgZmlsbD0iIzRDQUY1MCIvPjx0ZXh0IHg9IjQwIiB5PSI1MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPlNKPC90ZXh0Pjwvc3ZnPg==',
       rating: 5,
       text: 'Muluken delivered an exceptional mobile app that exceeded our expectations. His attention to detail and technical expertise are outstanding.',
       project: 'E-commerce Mobile App',
@@ -440,7 +477,7 @@ const Portfolio = () => {
       name: 'Michael Chen',
       role: 'CTO, InnovateLab',
       company: 'InnovateLab',
-      image: 'https://via.placeholder.com/80x80/2196F3/ffffff?text=MC',
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSI0MCIgZmlsbD0iIzIxOTZGMyIvPjx0ZXh0IHg9IjQwIiB5PSI1MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPk1DPC90ZXh0Pjwvc3ZnPg==',
       rating: 5,
       text: 'Working with Muluken was a game-changer for our startup. He built a scalable platform that handles thousands of users seamlessly.',
       project: 'SaaS Platform Development',
@@ -450,7 +487,7 @@ const Portfolio = () => {
       name: 'Emily Rodriguez',
       role: 'Product Manager, DigitalFlow',
       company: 'DigitalFlow',
-      image: 'https://via.placeholder.com/80x80/FF9800/ffffff?text=ER',
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSI0MCIgZmlsbD0iI0ZGOTgwMCIvPjx0ZXh0IHg9IjQwIiB5PSI1MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPkVSPC90ZXh0Pjwvc3ZnPg==',
       rating: 5,
       text: 'Muluken\'s full-stack development skills are impressive. He delivered our project on time and within budget with excellent quality.',
       project: 'Business Management System',
@@ -460,7 +497,7 @@ const Portfolio = () => {
       name: 'David Kim',
       role: 'Founder, StartupHub',
       company: 'StartupHub',
-      image: 'https://via.placeholder.com/80x80/9C27B0/ffffff?text=DK',
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSI0MCIgZmlsbD0iIzlDMjdCMCIvPjx0ZXh0IHg9IjQwIiB5PSI1MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPkRLPC90ZXh0Pjwvc3ZnPg==',
       rating: 5,
       text: 'The delivery app Muluken created for us has revolutionized our business. The real-time tracking and user experience are phenomenal.',
       project: 'Delivery Management App',
@@ -470,7 +507,7 @@ const Portfolio = () => {
       name: 'Lisa Thompson',
       role: 'Marketing Director, GrowthCorp',
       company: 'GrowthCorp',
-      image: 'https://via.placeholder.com/80x80/E91E63/ffffff?text=LT',
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSI0MCIgZmlsbD0iI0U5MUU2MyIvPjx0ZXh0IHg9IjQwIiB5PSI1MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPkxUPC90ZXh0Pjwvc3ZnPg==',
       rating: 5,
       text: 'Muluken built us a beautiful, responsive website that perfectly captures our brand. His design sense and technical skills are top-notch.',
       project: 'Corporate Website Redesign',
@@ -500,9 +537,9 @@ const Portfolio = () => {
     { name: 'CCNA2: Routing and Switching Essentials', issuer: 'Cisco', date: '2024', image: ciscoCert, category: 'Networking' },
     { name: 'CCNA3: Enterprise Networking, Security, and Automation', issuer: 'Cisco', date: '2024', image: ciscoCert, category: 'Networking' },
     { name: 'NDG Essential Linux', issuer: 'NDG (Network Development Group)', date: '2024', image: linuxCert, category: 'System Administration' },
-    { name: 'Machine Learning with Python – Training', issuer: 'Training Institute', date: '2024', image: 'https://via.placeholder.com/100x100/3776AB/ffffff?text=ML', category: 'AI/ML' },
+    { name: 'Machine Learning with Python – Training', issuer: 'Training Institute', date: '2024', image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMzc3NkFCIi8+Cjx0ZXh0IHg9IjUwIiB5PSI1NSIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPk1MPC90ZXh0Pgo8L3N2Zz4K', category: 'AI/ML' },
     { name: 'Digital Marketing', issuer: 'Orbit Innovation Hub', date: '2024', image: digitalMarketingCert, category: 'Marketing' },
-    { name: 'Innovation Minister Hackathon – Participation', issuer: 'Ministry of Innovation', date: '2024', image: 'https://via.placeholder.com/100x100/FF6B35/ffffff?text=HACK', category: 'Competition' },
+    { name: 'Innovation Minister Hackathon – Participation', issuer: 'Ministry of Innovation', date: '2024', image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRkY2QjM1Ii8+Cjx0ZXh0IHg9IjUwIiB5PSI0NSIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiPkhBQ0s8L3RleHQ+Cjx0ZXh0IHg9IjUwIiB5PSI2NSIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiPkFUSE9OPC90ZXh0Pgo8L3N2Zz4K', category: 'Competition' },
     { name: 'Recommendation Letter – Advisor', issuer: 'Professional Advisor', date: '2024', image: recommendationCert, category: 'Recognition' }
   ]);
 
@@ -540,20 +577,38 @@ const Portfolio = () => {
     }
   ]);
 
+  // Fetch blogs from backend
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('/api/blogs');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.length > 0) {
+            setBlogPosts(data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
   // Fetch GitHub repositories and user data
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
         setGithubLoading(true);
-        
+
         // Fetch user data
         const userResponse = await fetch('https://api.github.com/users/muluken16');
         const userData = await userResponse.json();
-        
+
         // Fetch repositories
         const reposResponse = await fetch('https://api.github.com/users/muluken16/repos?sort=updated&per_page=50');
         const reposData = await reposResponse.json();
-        
+
         if (userResponse.ok && reposResponse.ok) {
           // Update GitHub stats
           setGithubStats({
@@ -562,32 +617,54 @@ const Portfolio = () => {
             following: userData.following || 0,
             stars: reposData.reduce((total, repo) => total + (repo.stargazers_count || 0), 0)
           });
-          
+
+          // Fetch overrides from local DB
+          let overridesData = [];
+          try {
+            const overridesResponse = await fetch('/api/projects/overrides');
+            if (overridesResponse.ok) {
+              overridesData = await overridesResponse.json();
+            }
+          } catch (e) {
+            console.warn('Could not fetch project overrides', e);
+          }
+
+          const overrideMap = {};
+          overridesData.forEach(ov => {
+            overrideMap[ov.repoName] = ov;
+          });
+
           // Process repositories
           const processedRepos = reposData
             .filter(repo => !repo.fork && repo.name !== 'muluken16') // Filter out forks and profile repo
-            .map(repo => ({
-              id: repo.id,
-              title: repo.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-              description: repo.description || 'No description available',
-              image: getProjectEmoji(repo.name, repo.language),
-              tech: [
-                repo.language,
-                ...(repo.topics || []).slice(0, 4)
-              ].filter(Boolean),
-              github: repo.html_url,
-              demo: repo.homepage || `${repo.html_url}#readme`,
-              status: repo.updated_at > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString() ? 'Active' : 'Stable',
-              stars: repo.stargazers_count || 0,
-              forks: repo.forks_count || 0,
-              category: getCategoryFromLanguage(repo.language),
-              language: repo.language,
-              updated: repo.updated_at,
-              created: repo.created_at
-            }))
-            .sort((a, b) => new Date(b.updated) - new Date(a.updated))
-            .slice(0, 8); // Show top 8 repositories
-          
+            .map(repo => {
+              const override = overrideMap[repo.name] || {};
+              if (override.isHidden) return null;
+
+              return {
+                id: repo.id,
+                title: override.customTitle || repo.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                description: override.customDescription || repo.description || 'No description available',
+                image: getProjectEmoji(repo.name, repo.language),
+                tech: [
+                  repo.language,
+                  ...(repo.topics || []).slice(0, 4)
+                ].filter(Boolean),
+                github: repo.html_url,
+                demo: override.customDemoLink || repo.homepage || `${repo.html_url}#readme`,
+                status: repo.updated_at > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString() ? 'Active' : 'Stable',
+                stars: repo.stargazers_count || 0,
+                forks: repo.forks_count || 0,
+                category: getCategoryFromLanguage(repo.language),
+                language: repo.language,
+                updated: repo.updated_at,
+                created: repo.created_at,
+                repoName: repo.name
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => new Date(b.updated) - new Date(a.updated));
+
           setGithubRepos(processedRepos);
         } else {
           throw new Error('Failed to fetch GitHub data');
@@ -639,7 +716,7 @@ const Portfolio = () => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      
+
       // Add cursor trail
       setCursorTrail(prev => [
         ...prev.slice(-10),
@@ -705,7 +782,7 @@ const Portfolio = () => {
     if ('getBattery' in navigator) {
       navigator.getBattery().then(battery => {
         setBatteryLevel(Math.round(battery.level * 100));
-        
+
         battery.addEventListener('levelchange', () => {
           setBatteryLevel(Math.round(battery.level * 100));
         });
@@ -723,14 +800,14 @@ const Portfolio = () => {
       'Innovation Leader',
       'Code Architect'
     ];
-    
+
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    
+
     const typeEffect = () => {
       const currentText = texts[textIndex];
-      
+
       if (isDeleting) {
         setTypingText(currentText.substring(0, charIndex - 1));
         charIndex--;
@@ -738,7 +815,7 @@ const Portfolio = () => {
         setTypingText(currentText.substring(0, charIndex + 1));
         charIndex++;
       }
-      
+
       if (!isDeleting && charIndex === currentText.length) {
         setTimeout(() => {
           isDeleting = true;
@@ -747,11 +824,11 @@ const Portfolio = () => {
         isDeleting = false;
         textIndex = (textIndex + 1) % texts.length;
       }
-      
+
       const speed = isDeleting ? 50 : 100;
       setTimeout(typeEffect, speed);
     };
-    
+
     typeEffect();
   }, []);
 
@@ -1098,10 +1175,27 @@ const Portfolio = () => {
         box-shadow: 0 15px 40px rgba(0,0,0,0.12);
       }
       
-      .game-card:hover {
-        transform: translateY(-3px);
-        background-color: #fff;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      .project-card {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      }
+      
+      .project-card:hover {
+        transform: translateY(-15px) rotateX(4deg) rotateY(4deg);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.12) !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+      }
+
+      .project-card > * {
+        transform: translateZ(20px);
+      }
+      
+      .theme-transition {
+        transition: background-color 0.5s ease, color 0.5s ease, backdrop-filter 0.5s ease;
       }
       
       .music-track:hover {
@@ -1212,7 +1306,7 @@ const Portfolio = () => {
       }
     `;
     document.head.appendChild(style);
-    
+
     return () => {
       if (document.head.contains(style)) {
         document.head.removeChild(style);
@@ -1244,7 +1338,7 @@ const Portfolio = () => {
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
@@ -1258,7 +1352,7 @@ const Portfolio = () => {
       const offset = isMobile ? 60 : 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
-      
+
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
@@ -1315,52 +1409,64 @@ const Portfolio = () => {
   ];
 
   return (
-    <div style={styles.container}>
+    <div style={{
+      ...styles.container,
+      backgroundColor: currentTheme === 'light' ? '#ffffff' : '#0f172a',
+      color: currentTheme === 'light' ? '#333' : '#f8fafc',
+      transition: 'all 0.5s ease'
+    }} className="theme-transition">
       {/* Modern Responsive Navigation */}
-      <nav style={styles.modernNav}>
+      <nav style={{
+        ...styles.modernNav,
+        backgroundColor: currentTheme === 'light' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)',
+        borderBottom: currentTheme === 'light' ? '1px solid rgba(0,0,0,0.05)' : '1px solid rgba(255,255,255,0.1)'
+      }}>
         <div style={styles.modernNavContent}>
           {/* Logo with Photo */}
           <div style={styles.modernLogo}>
             <div style={styles.logoPhotoContainer}>
-              <img 
-                src={profileImage} 
-                alt="Muluken Mesfin" 
+              <img
+                src={profileImage}
+                alt="Muluken Mesfin"
                 style={styles.logoPhoto}
               />
             </div>
             <div style={styles.logoTextContainer}>
-              <span style={styles.logoName}>Muluken Mesfin</span>
+              <span style={{ ...styles.logoName, color: currentTheme === 'light' ? '#1a1a1a' : '#fff' }}>Muluken Mesfin</span>
               <span style={styles.logoTitle}>Full-Stack Developer</span>
             </div>
           </div>
-          
+
           {/* Desktop Navigation Links */}
           {!isMobile && (
             <div style={styles.modernNavLinks}>
-              <button onClick={() => scrollToSection('about')} style={styles.modernNavLink}>About</button>
-              <button onClick={() => scrollToSection('apps')} style={styles.modernNavLink}>Apps</button>
-              <button onClick={() => scrollToSection('projects')} style={styles.modernNavLink}>Projects</button>
-              <button onClick={() => scrollToSection('skills')} style={styles.modernNavLink}>Skills</button>
-              <button onClick={() => scrollToSection('achievements')} style={styles.modernNavLink}>Achievements</button>
-              <button onClick={() => scrollToSection('contact')} style={styles.modernNavLink}>Contact</button>
+              {['about', 'apps', 'projects', 'skills', 'achievements', 'contact'].map(section => (
+                <button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  style={{ ...styles.modernNavLink, color: currentTheme === 'light' ? '#475569' : '#cbd5e1' }}
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </button>
+              ))}
             </div>
           )}
-          
+
           {/* Action Buttons */}
           <div style={styles.navActions}>
-            <a 
-              href="https://github.com/muluken16" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://github.com/muluken16"
+              target="_blank"
+              rel="noopener noreferrer"
               style={styles.modernGithubBtn}
             >
               <Github size={18} />
               {!isMobile && <span>GitHub</span>}
             </a>
-            
+
             {/* Mobile Menu Button */}
             {isMobile && (
-              <button 
+              <button
                 onClick={toggleMobileMenu}
                 style={styles.modernMobileMenuBtn}
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -1370,16 +1476,16 @@ const Portfolio = () => {
             )}
           </div>
         </div>
-        
+
         {/* Modern Mobile Menu */}
         {isMobile && menuOpen && (
           <div style={styles.modernMobileMenu}>
             <div style={styles.modernMobileMenuContent}>
               {/* Mobile Menu Header with Photo */}
               <div style={styles.modernMobileMenuHeader}>
-                <img 
-                  src={profileImage} 
-                  alt="Muluken Mesfin" 
+                <img
+                  src={profileImage}
+                  alt="Muluken Mesfin"
                   style={styles.modernMobileMenuPhoto}
                 />
                 <div style={styles.modernMobileMenuInfo}>
@@ -1388,7 +1494,7 @@ const Portfolio = () => {
                 </div>
               </div>
             </div>
-            
+
             <div style={styles.mobileMenuContent}>
               <button onClick={() => scrollToSection('about')} style={styles.mobileNavLink}>
                 <User size={20} />
@@ -1423,14 +1529,14 @@ const Portfolio = () => {
                 Contact
               </button>
             </div>
-            
+
             <div style={styles.mobileMenuFooter}>
               <div style={styles.mobileMenuSocial}>
                 {socialLinks.map((social, index) => (
-                  <a 
+                  <a
                     key={index}
-                    href={social.url} 
-                    target="_blank" 
+                    href={social.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     style={styles.mobileMenuSocialLink}
                   >
@@ -1442,10 +1548,10 @@ const Portfolio = () => {
             </div>
           </div>
         )}
-        
+
         {/* Mobile Menu Overlay */}
         {isMobile && menuOpen && (
-          <div 
+          <div
             style={styles.mobileMenuOverlay}
             onClick={toggleMobileMenu}
           />
@@ -1456,66 +1562,57 @@ const Portfolio = () => {
       <section style={styles.hero}>
         <div style={styles.heroPhotoSection}>
           <div style={styles.heroPhotoContainer}>
-            <img 
-              src={profileImage} 
-              alt="Muluken Mesfin - Full Stack Developer" 
+            <img
+              src={profileImage}
+              alt="Muluken Mesfin - Full Stack Developer"
               style={styles.heroPhoto}
             />
             {/* Additional profile images gallery */}
             <div style={styles.profileGallery}>
-              <div style={styles.galleryImage} className="gallery-image">
-                <img 
-                  src={profileImage} 
-                  alt="Profile 1" 
-                  style={styles.galleryImg}
-                />
-              </div>
-              <div style={styles.galleryImage} className="gallery-image">
-                <img 
-                  src="https://via.placeholder.com/100x100/E63946/ffffff?text=Work" 
-                  alt="Work Setup" 
-                  style={styles.galleryImg}
-                />
-              </div>
-              <div style={styles.galleryImage} className="gallery-image">
-                <img 
-                  src="https://via.placeholder.com/100x100/2196F3/ffffff?text=Code" 
-                  alt="Coding" 
-                  style={styles.galleryImg}
-                />
-              </div>
+              {galleryItems.filter(item => item.type === 'profile').slice(0, 3).map((item, index) => (
+                <div key={item._id || index} style={styles.galleryImage} className="gallery-image">
+                  <img
+                    src={item.src}
+                    alt={item.alt || `Gallery Image ${index + 1}`}
+                    style={styles.galleryImg}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         <div style={styles.heroMainContent}>
           <div style={styles.heroTextSection}>
+            {/* World Map Decoration */}
+
+
             {/* Status Badge */}
             <div style={styles.heroBadge}>
               <Zap size={16} />
               Available for Opportunities
             </div>
-            
+
             {/* Main Title */}
             <h1 style={styles.heroTitle}>
               Hi, I'm <span style={styles.heroHighlight}>Muluken Mesfin</span>
             </h1>
-            
+
             {/* Dynamic Subtitle */}
             <p style={styles.heroSubtitle}>
               <span className="typewriter">{typingText || 'Full-Stack Developer & Mobile App Specialist'}</span>
             </p>
-            
+
             {/* Brief Description */}
             <div style={styles.heroDescription}>
               <span className={isMobile ? 'mobile-hide-description' : ''}>
                 Full-stack developer specializing in React, React Native, and modern web technologies. Building scalable applications with clean code and user-focused design.
               </span>
-              <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+              <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{ display: isMobile ? 'block' : 'none' }}>
                 Full-stack developer building modern web & mobile apps.
               </span>
             </div>
-            
+
             {/* Career Objective */}
             <div style={styles.heroAssumption} className={isMobile ? 'mobile-hide-description' : ''}>
               <strong>Career Objective:</strong> Seeking opportunities to contribute to innovative software projects while growing as a full-stack developer.
@@ -1526,7 +1623,7 @@ const Portfolio = () => {
               <h4 style={styles.heroSkillsTitle}>Core Technologies</h4>
               <div style={styles.heroSkillsTags}>
                 {topSkills.slice(0, 4).map((skill, index) => (
-                  <div key={index} style={{...styles.heroSkillTag, backgroundColor: skill.color + '20', color: skill.color}}>
+                  <div key={index} style={{ ...styles.heroSkillTag, backgroundColor: skill.color + '20', color: skill.color }}>
                     <span style={styles.heroSkillIcon}>{skill.icon}</span>
                     <span>{skill.name}</span>
                     <span style={styles.heroSkillLevel}>{skill.level}%</span>
@@ -1554,14 +1651,14 @@ const Portfolio = () => {
       <section id="about" style={styles.aboutSection}>
         <div style={styles.aboutContainer}>
           <div style={isMobile ? styles.aboutContentMobile : styles.aboutContent}>
-            
+
             {/* Profile Section - Always First */}
             <div style={isMobile ? styles.aboutMobileProfile : styles.aboutLeft}>
               <div style={styles.aboutProfileCard}>
                 <div style={styles.aboutImageContainer}>
-                  <img 
-                    src={profileImage} 
-                    alt="Muluken Mesfin" 
+                  <img
+                    src={profileImage}
+                    alt="Muluken Mesfin"
                     style={styles.aboutProfileImage}
                   />
                   <div style={styles.aboutImageOverlay} className={isMobile ? 'mobile-hide-description' : ''}>
@@ -1571,46 +1668,47 @@ const Portfolio = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div style={styles.aboutProfileInfo}>
                   <h3 style={styles.aboutProfileName}>Muluken Mesfin</h3>
                   <p style={styles.aboutProfileTitle}>Full-Stack Developer</p>
                   <div style={styles.aboutProfileLocation}>
                     <MapPin size={16} color="#64748b" />
                     <span>Ethiopia (Remote Available)</span>
+
                   </div>
-                  
+
                   {/* Education in Profile Card */}
-                  <div style={{marginTop: '16px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0'}}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px'}}>
+                  <div style={{ marginTop: '16px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                       <GraduationCap size={16} color="#3b82f6" />
-                      <span style={{fontSize: '14px', fontWeight: '600', color: '#1e293b'}}>Education</span>
+                      <span style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>Education</span>
                     </div>
-                    <div style={{fontSize: isMobile ? '12px' : '13px', color: '#475569'}}>
-                      <div style={{fontWeight: '600', marginBottom: '2px'}}>
+                    <div style={{ fontSize: isMobile ? '12px' : '13px', color: '#475569' }}>
+                      <div style={{ fontWeight: '600', marginBottom: '2px' }}>
                         <span className={isMobile ? 'mobile-hide-description' : ''}>
                           Bachelor of Science in Computer Science
                         </span>
-                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
+                        <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{ display: isMobile ? 'block' : 'none' }}>
                           BSc Computer Science
                         </span>
                       </div>
-                      <div style={{fontSize: isMobile ? '11px' : '12px', color: '#64748b'}}>
+                      <div style={{ fontSize: isMobile ? '11px' : '12px', color: '#64748b' }}>
                         Wolkite University
                       </div>
-                      <div style={{fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginTop: '4px', display: 'flex', gap: '12px'}}>
+                      <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginTop: '4px', display: 'flex', gap: '12px' }}>
                         <span>2019 - 2023</span>
                         <span className={isMobile ? 'mobile-hide-description' : ''}>CGPA: 3.35</span>
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* CV Download Button */}
-                  <div style={{...styles.cvDownloadSection, marginTop: '12px', marginBottom: '0px'}}>
-                    <a 
-                      href={cvPdf} 
+                  <div style={{ ...styles.cvDownloadSection, marginTop: '12px', marginBottom: '0px' }}>
+                    <a
+                      href={cvPdf}
                       download="Muluken_Tesfaye_CV.pdf"
-                      style={{...styles.cvDownloadButton, padding: '8px 16px', fontSize: '13px'}}
+                      style={{ ...styles.cvDownloadButton, padding: '8px 16px', fontSize: '13px' }}
                       onMouseEnter={(e) => {
                         e.target.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
                         e.target.style.transform = 'translateY(-2px)';
@@ -1623,7 +1721,7 @@ const Portfolio = () => {
                       }}
                     >
                       <Download size={14} />
-                      <span style={{...styles.cvDownloadText, fontSize: '13px'}}>
+                      <span style={{ ...styles.cvDownloadText, fontSize: '13px' }}>
                         Download CV
                       </span>
                     </a>
@@ -1643,14 +1741,14 @@ const Portfolio = () => {
 
               <div style={styles.aboutDescription}>
                 <div style={styles.aboutParagraph}>
-                  I'm a recent Computer Science graduate from Wolkite University with a strong passion for 
-                  building practical software solutions. My journey in technology has been driven by curiosity 
+                  I'm a recent Computer Science graduate from Wolkite University with a strong passion for
+                  building practical software solutions. My journey in technology has been driven by curiosity
                   and a desire to create applications that solve real-world problems.
                 </div>
-                
+
                 <div style={styles.aboutParagraph}>
-                  With hands-on experience in developing web and cross-platform mobile applications, I specialize 
-                  in React Native and Flutter for mobile development, while leveraging Python, JavaScript, PHP, 
+                  With hands-on experience in developing web and cross-platform mobile applications, I specialize
+                  in React Native and Flutter for mobile development, while leveraging Python, JavaScript, PHP,
                   and SQL for backend solutions.
                 </div>
               </div>
@@ -1690,165 +1788,168 @@ const Portfolio = () => {
           <p style={styles.sectionSubtitle}>
             Professional mobile applications built with modern technologies
           </p>
-          
+
           {/* App Cards */}
           <div style={styles.modernAppGrid}>
             {appProjects.map((app, index) => (
-                <div key={app.id} className="modern-app-card" style={styles.modernAppCard}>
-                  {/* App Header */}
-                  <div style={styles.modernAppHeader}>
-                    <div style={{...styles.modernAppIcon, background: `linear-gradient(135deg, ${app.color}, ${app.color}dd)`}}>
-                      <span style={styles.modernAppEmoji}>{app.icon}</span>
+              <div key={app.id} className="modern-app-card" style={styles.modernAppCard}>
+                {/* App Header */}
+                <div style={styles.modernAppHeader}>
+                  <div style={{ ...styles.modernAppIcon, background: `linear-gradient(135deg, ${app.color}, ${app.color}dd)` }}>
+                    <span style={styles.modernAppEmoji}>{app.icon}</span>
+                  </div>
+                  <div style={styles.modernAppMeta}>
+                    <h3 style={styles.modernAppTitle}>{app.title}</h3>
+                    <div style={styles.modernAppBadge}>
+                      <div style={{ ...styles.modernStatusDot, backgroundColor: app.color }}></div>
+                      <span style={styles.modernStatusText}>{app.status}</span>
                     </div>
-                    <div style={styles.modernAppMeta}>
-                      <h3 style={styles.modernAppTitle}>{app.title}</h3>
-                      <div style={styles.modernAppBadge}>
-                        <div style={{...styles.modernStatusDot, backgroundColor: app.color}}></div>
-                        <span style={styles.modernStatusText}>{app.status}</span>
-                      </div>
+                  </div>
+                </div>
+
+                {/* App Description */}
+                <div style={styles.modernAppDescription}>
+                  <span className={isMobile ? 'mobile-hide-description' : ''}>
+                    {app.description}
+                  </span>
+                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{ display: isMobile ? 'block' : 'none' }}>
+                    {app.title === 'Customer App' ? 'Food ordering with tracking & payments' :
+                      app.title === 'Vendor App' ? 'Restaurant management & analytics' :
+                        app.title === 'Rider App' ? 'Delivery app with GPS & earnings' :
+                          app.title === 'MuyaPro' ? 'Service marketplace app' :
+                            app.description.split('.')[0] + '.'}
+                  </span>
+                </div>
+
+                {/* Key Features Grid */}
+                <div style={styles.modernFeaturesGrid}>
+                  {app.features.map((feature, i) => (
+                    <div key={i} style={styles.modernFeatureItem}>
+                      <span style={styles.modernFeatureText}>{feature}</span>
                     </div>
-                  </div>
+                  ))}
+                </div>
 
-                  {/* App Description */}
-                  <div style={styles.modernAppDescription}>
-                    <span className={isMobile ? 'mobile-hide-description' : ''}>
-                      {app.description}
+                {/* Tech Stack Pills */}
+                <div style={styles.modernTechStack}>
+                  {app.tech.slice(0, isMobile ? 3 : 4).map((tech, i) => (
+                    <span key={i} style={styles.modernTechPill}>
+                      {tech}
                     </span>
-                    <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                      {app.title === 'Customer App' ? 'Food ordering with tracking & payments' :
-                       app.title === 'Vendor App' ? 'Restaurant management & analytics' :
-                       app.title === 'Rider App' ? 'Delivery app with GPS & earnings' :
-                       app.title === 'MuyaPro' ? 'Service marketplace app' :
-                       app.description.split('.')[0] + '.'}
-                    </span>
-                  </div>
+                  ))}
+                </div>
 
-                  {/* Key Features Grid */}
-                  <div style={styles.modernFeaturesGrid}>
-                    {app.features.map((feature, i) => (
-                      <div key={i} style={styles.modernFeatureItem}>
-                        <span style={styles.modernFeatureText}>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Tech Stack Pills */}
-                  <div style={styles.modernTechStack}>
-                    {app.tech.slice(0, isMobile ? 3 : 4).map((tech, i) => (
-                      <span key={i} style={styles.modernTechPill}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Screenshots Carousel */}
-                  {app.screenshots && app.screenshots.length > 0 && (
-                    <div style={styles.modernScreenshots}>
-                      <div style={styles.modernScreenshotsContainer}>
-                        {app.screenshots.map((screenshot, i) => (
-                          <div 
-                            key={i} 
-                            className="modern-screenshot-wrapper"
-                            style={styles.modernScreenshotWrapper}
-                            onClick={() => setMobilePreview({
-                              isOpen: true,
-                              images: app.screenshots,
-                              currentIndex: i,
-                              appTitle: app.title,
-                              appColor: app.color
-                            })}
-                          >
-                            <img 
-                              src={screenshot} 
-                              alt={`${app.title} Screenshot ${i + 1}`}
-                              className="modern-screenshot"
-                              style={styles.modernScreenshot}
-                            />
-                            <div className="screenshot-overlay" style={styles.screenshotOverlay}>
-                              <Eye size={16} color="#fff" />
-                            </div>
+                {/* Screenshots Carousel */}
+                {app.screenshots && app.screenshots.length > 0 && (
+                  <div style={styles.modernScreenshots}>
+                    <div style={styles.modernScreenshotsContainer}>
+                      {app.screenshots.map((screenshot, i) => (
+                        <div
+                          key={i}
+                          className="modern-screenshot-wrapper"
+                          style={styles.modernScreenshotWrapper}
+                          onClick={() => setMobilePreview({
+                            isOpen: true,
+                            images: app.screenshots,
+                            currentIndex: i,
+                            appTitle: app.title,
+                            appColor: app.color
+                          })}
+                        >
+                          <img
+                            src={screenshot}
+                            alt={`${app.title} Screenshot ${i + 1}`}
+                            className="modern-screenshot"
+                            style={styles.modernScreenshot}
+                          />
+                          <div className="screenshot-overlay" style={styles.screenshotOverlay}>
+                            <Eye size={16} color="#fff" />
                           </div>
-                        ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Download Actions */}
+                <div style={styles.modernDownloadSection}>
+                  {app.downloadUrl ? (
+                    <div style={styles.modernDownloadActions}>
+                      <a
+                        href={app.downloadUrl}
+                        download={`${app.title.replace(' ', '_')}.apk`}
+                        style={{ ...styles.modernPrimaryBtn, backgroundColor: app.color }}
+                        className="modern-download-btn"
+                      >
+                        <Download size={18} />
+                        <span>Download APK</span>
+                      </a>
+                      <button
+                        onClick={() => setMobilePreview({
+                          isOpen: true,
+                          images: app.screenshots,
+                          currentIndex: 0,
+                          appTitle: app.title,
+                          appColor: app.color
+                        })}
+                        style={{ ...styles.modernSecondaryBtn, borderColor: app.color, color: app.color }}
+                        className="modern-preview-btn"
+                      >
+                        <Eye size={18} />
+                        <span>Preview App</span>
+                      </button>
+                      <div style={styles.downloadInfo}>
+                        <div style={styles.downloadInfoItem}>
+                          <Smartphone size={16} color="#666" />
+                          <span>Android App</span>
+                        </div>
+                        <div style={styles.downloadInfoItem}>
+                          <Shield size={16} color="#666" />
+                          <span>Safe & Secure</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={styles.modernDownloadActions}>
+                      <button
+                        onClick={() => setMobilePreview({
+                          isOpen: true,
+                          images: app.screenshots,
+                          currentIndex: 0,
+                          appTitle: app.title,
+                          appColor: app.color
+                        })}
+                        style={{ ...styles.modernSecondaryBtn, borderColor: app.color, color: app.color }}
+                        className="modern-preview-btn"
+                      >
+                        <Eye size={18} />
+                        <span>Preview App</span>
+                      </button>
+                      <div style={styles.modernComingSoon}>
+                        <Clock size={20} color="#999" />
+                        <span>Download Coming Soon</span>
                       </div>
                     </div>
                   )}
-
-                  {/* Download Actions */}
-                  <div style={styles.modernDownloadSection}>
-                    {app.downloadUrl ? (
-                      <div style={styles.modernDownloadActions}>
-                        <a 
-                          href={app.downloadUrl} 
-                          download={`${app.title.replace(' ', '_')}.apk`}
-                          style={{...styles.modernPrimaryBtn, backgroundColor: app.color}}
-                          className="modern-download-btn"
-                        >
-                          <Download size={18} />
-                          <span>Download APK</span>
-                        </a>
-                        <button 
-                          onClick={() => setMobilePreview({
-                            isOpen: true,
-                            images: app.screenshots,
-                            currentIndex: 0,
-                            appTitle: app.title,
-                            appColor: app.color
-                          })}
-                          style={{...styles.modernSecondaryBtn, borderColor: app.color, color: app.color}}
-                          className="modern-preview-btn"
-                        >
-                          <Eye size={18} />
-                          <span>Preview App</span>
-                        </button>
-                        <div style={styles.downloadInfo}>
-                          <div style={styles.downloadInfoItem}>
-                            <Smartphone size={16} color="#666" />
-                            <span>Android App</span>
-                          </div>
-                          <div style={styles.downloadInfoItem}>
-                            <Shield size={16} color="#666" />
-                            <span>Safe & Secure</span>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div style={styles.modernDownloadActions}>
-                        <button 
-                          onClick={() => setMobilePreview({
-                            isOpen: true,
-                            images: app.screenshots,
-                            currentIndex: 0,
-                            appTitle: app.title,
-                            appColor: app.color
-                          })}
-                          style={{...styles.modernSecondaryBtn, borderColor: app.color, color: app.color}}
-                          className="modern-preview-btn"
-                        >
-                          <Eye size={18} />
-                          <span>Preview App</span>
-                        </button>
-                        <div style={styles.modernComingSoon}>
-                          <Clock size={20} color="#999" />
-                          <span>Download Coming Soon</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Enhanced Projects Section */}
-      <section id="projects" style={styles.projects}>
-        <h2 style={styles.sectionTitle}>Featured Projects</h2>
+      <section id="projects" style={{
+        ...styles.projects,
+        background: currentTheme === 'light' ? 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)' : '#111827'
+      }}>
+        <h2 style={{ ...styles.sectionTitle, color: currentTheme === 'light' ? '#1e293b' : '#fff' }}>Featured Projects</h2>
         <p style={styles.sectionSubtitle}>
-          {githubLoading ? 'Loading projects from GitHub...' : 
-           githubError ? 'Some of my recent work with live demos and source code' :
-           `${githubRepos.length} projects fetched from GitHub`}
+          {githubLoading ? 'Loading projects from GitHub...' :
+            githubError ? 'Some of my recent work with live demos and source code' :
+              `${githubRepos.length} projects fetched from GitHub`}
         </p>
-        
+
         {githubLoading ? (
           <div style={styles.loadingContainer}>
             <div style={styles.loadingSpinner} className="loading-spinner"></div>
@@ -1856,51 +1957,69 @@ const Portfolio = () => {
           </div>
         ) : (
           <div style={styles.projectsGrid}>
-            {githubRepos.map((project, index) => (
+            {githubRepos.slice(0, showMoreProjects ? githubRepos.length : 8).map((project, index) => (
               <div key={project.id} style={styles.projectCard} className="project-card">
                 <div style={styles.projectHeader}>
                   <div style={styles.projectEmoji}>{project.image}</div>
                   <div style={styles.projectMeta}>
                     <span style={styles.projectCategory}>{project.category}</span>
-                    <span style={{...styles.projectStatus, 
+                    <span style={{
+                      ...styles.projectStatus,
                       backgroundColor: project.status === 'Active' ? '#4CAF50' : '#2196F3'
                     }}>
                       {project.status}
                     </span>
                   </div>
                 </div>
-                
-                <h3 style={styles.projectTitle}>{project.title}</h3>
-                <div style={styles.projectDesc}>
-                  <span className={isMobile ? 'mobile-hide-description' : ''}>
+
+                <h3 style={{ ...styles.projectTitle, color: currentTheme === 'light' ? '#1e293b' : '#fff' }}>{project.title}</h3>
+                <div style={{ ...styles.projectDesc, position: 'relative' }}>
+                  <span style={{
+                    display: 'block',
+                    maxHeight: expandedDescriptions[project.id] ? 'none' : '4.5em',
+                    overflow: 'hidden',
+                    lineHeight: '1.5em',
+                    transition: 'max-height 0.3s ease',
+                    color: currentTheme === 'light' ? '#475569' : '#94a3b8'
+                  }}>
                     {project.description}
                   </span>
-                  <span className={isMobile ? 'mobile-short-description' : 'mobile-hide-description'} style={{display: isMobile ? 'block' : 'none'}}>
-                    {project.description.length > 50 ? project.description.substring(0, 50) + '...' : project.description}
-                  </span>
+                  {project.description.length > 50 && (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setExpandedDescriptions(prev => ({
+                          ...prev,
+                          [project.id]: !prev[project.id]
+                        }));
+                      }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#E63946',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        padding: '4px 0',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        marginTop: '4px'
+                      }}
+                    >
+                      {expandedDescriptions[project.id] ? 'Show Less' : 'Read More...'}
+                    </button>
+                  )}
                 </div>
-                
+
                 <div style={styles.projectTech}>
                   {project.tech.slice(0, isMobile ? 3 : 4).map((tech, i) => (
                     <span key={i} style={styles.techTag}>{tech}</span>
                   ))}
                 </div>
-                
-                <div style={styles.projectStats}>
-                  <div style={styles.projectStat}>
-                    <Star size={16} color="#FFD700" />
-                    <span>{project.stars}</span>
-                  </div>
-                  <div style={styles.projectStat}>
-                    <GitBranch size={16} color="#666" />
-                    <span>{project.forks}</span>
-                  </div>
-                  <div style={styles.projectStat}>
-                    <Calendar size={16} color="#999" />
-                    <span>{new Date(project.updated).toLocaleDateString()}</span>
-                  </div>
-                </div>
-                
+
+                {/* Stats removed as per request */}
+
                 <div style={styles.projectLinks}>
                   {project.demo && project.demo !== `${project.github}#readme` ? (
                     <a href={project.demo} target="_blank" rel="noopener noreferrer" style={styles.projectBtn}>
@@ -1922,13 +2041,42 @@ const Portfolio = () => {
             ))}
           </div>
         )}
-        
+
+        {/* Show More Projects Toggle */}
+        {!githubLoading && githubRepos.length > 8 && (
+          <div style={{ textAlign: 'center', marginTop: '20px', marginBottom: '40px' }}>
+            <button
+              onClick={() => setShowMoreProjects(!showMoreProjects)}
+              style={{
+                background: currentTheme === 'light' ? '#1e293b' : '#3b82f6',
+                color: 'white',
+                padding: '12px 24px',
+                borderRadius: '12px',
+                border: 'none',
+                fontWeight: '700',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}
+            >
+              {showMoreProjects ? 'Show Less' : `Show More (${githubRepos.length - 8} more)`}
+              <ChevronRight size={18} style={{
+                transform: showMoreProjects ? 'rotate(-90deg)' : 'rotate(90deg)',
+                transition: 'transform 0.3s ease'
+              }} />
+            </button>
+          </div>
+        )}
+
         <div style={styles.githubCTA}>
-          <h3>Want to see more?</h3>
-          <p>Check out my GitHub profile for more projects and contributions</p>
+          <h3>Want to see more on GitHub?</h3>
+          <p>Explore my repositories for code snippets and development history</p>
           <a href="https://github.com/muluken16" target="_blank" rel="noopener noreferrer" style={styles.githubCtaBtn}>
             <Github size={20} />
-            View All Projects on GitHub
+            View My Profile on GitHub
             <ChevronRight size={20} />
           </a>
         </div>
@@ -1943,7 +2091,7 @@ const Portfolio = () => {
           <p style={styles.sectionSubtitle}>
             Programming languages, IT support, database administration, and system management skills
           </p>
-          
+
           {/* Skills Display */}
           <div style={styles.skillsScrollContainer}>
             <div style={styles.skillsRow}>
@@ -1955,7 +2103,7 @@ const Portfolio = () => {
                       <h3 style={styles.skillName}>{skill.name}</h3>
                     </div>
                     <div style={styles.skillBar}>
-                      <div 
+                      <div
                         style={{
                           ...styles.skillProgress,
                           width: `${skill.level}%`,
@@ -1984,7 +2132,7 @@ const Portfolio = () => {
           <p style={styles.sectionSubtitle}>
             Recognition and continuous learning milestones
           </p>
-          
+
           {/* Achievements Grid */}
           <div style={styles.achievementsGrid}>
             <div style={styles.achievementsColumn}>
@@ -2007,7 +2155,7 @@ const Portfolio = () => {
                 ))}
               </div>
             </div>
-            
+
             <div style={styles.achievementsColumn}>
               <h3 style={styles.achievementsColumnTitle}>
                 <span role="img" aria-label="scroll">📜</span> Certifications & Training
@@ -2015,9 +2163,9 @@ const Portfolio = () => {
               <div style={styles.certificationsList}>
                 {certifications.map((cert, index) => (
                   <div key={index} style={styles.certificationItem}>
-                    <img 
-                      src={cert.image} 
-                      alt={cert.name} 
+                    <img
+                      src={cert.image}
+                      alt={cert.name}
                       style={styles.certificationImage}
                       onClick={() => openImagePopup(cert.image, cert.name, cert.issuer)}
                       className="certification-image-clickable"
@@ -2048,12 +2196,12 @@ const Portfolio = () => {
           <p style={styles.sectionSubtitle}>
             What clients say about working with me
           </p>
-          
+
           <div style={styles.testimonialsCarousel}>
             <div style={styles.testimonialCard}>
               <div style={styles.testimonialHeader}>
-                <img 
-                  src={testimonials[testimonialIndex].image} 
+                <img
+                  src={testimonials[testimonialIndex].image}
                   alt={testimonials[testimonialIndex].name}
                   style={styles.testimonialAvatar}
                 />
@@ -2068,17 +2216,17 @@ const Portfolio = () => {
                   ))}
                 </div>
               </div>
-              
+
               <blockquote style={styles.testimonialText}>
                 "{testimonials[testimonialIndex].text}"
               </blockquote>
-              
+
               <div style={styles.testimonialFooter}>
                 <span style={styles.testimonialProject}>Project: {testimonials[testimonialIndex].project}</span>
                 <span style={styles.testimonialDate}>{testimonials[testimonialIndex].date}</span>
               </div>
             </div>
-            
+
             <div style={styles.testimonialNavigation}>
               {testimonials.map((_, index) => (
                 <button
@@ -2102,7 +2250,7 @@ const Portfolio = () => {
           <p style={styles.sectionSubtitle}>
             Sharing knowledge and insights from my development journey
           </p>
-          
+
           <div style={styles.blogGrid}>
             {blogPosts.map((post, index) => (
               <article key={index} style={styles.blogCard}>
@@ -2122,16 +2270,16 @@ const Portfolio = () => {
                     </span>
                   </div>
                 </div>
-                
+
                 <h3 style={styles.blogTitle}>{post.title}</h3>
                 <p style={styles.blogExcerpt}>{post.excerpt}</p>
-                
+
                 <div style={styles.blogTags}>
                   {post.tags.map((tag, tagIndex) => (
                     <span key={tagIndex} style={styles.blogTag}>{tag}</span>
                   ))}
                 </div>
-                
+
                 <div style={styles.blogFooter}>
                   <button style={styles.blogReadMore}>
                     Read More
@@ -2141,7 +2289,7 @@ const Portfolio = () => {
               </article>
             ))}
           </div>
-          
+
           <div style={styles.blogCTA}>
             <h3>Want to read more?</h3>
             <p>Check out my blog for more articles on development, technology, and innovation</p>
@@ -2158,12 +2306,12 @@ const Portfolio = () => {
       <section id="contact" style={styles.contact}>
         <h2 style={styles.sectionTitle}>Contact</h2>
         <p style={styles.sectionSubtitle}>Ready to bring your ideas to life? Let's connect!</p>
-        
+
         <div style={styles.contactContent}>
           <div style={styles.contactInfo}>
             <h3>Get In Touch</h3>
             <p>I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!</p>
-            
+
             <div style={styles.contactMethods}>
               <a href="mailto:mulukencs16@gmail.com" style={styles.contactMethod}>
                 <Mail size={24} color="#E63946" />
@@ -2192,11 +2340,12 @@ const Portfolio = () => {
                   <h4>Location</h4>
                   <p>Ethiopia (Remote Available)</p>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
-        
+
 
       </section>
 
@@ -2209,15 +2358,15 @@ const Portfolio = () => {
               <span style={styles.footerLogoText}>Muluken Mesfin</span>
             </div>
             <p style={styles.footerDesc}>
-              Computer Science graduate passionate about building practical software solutions 
+              Computer Science graduate passionate about building practical software solutions
               and contributing to innovative development teams.
             </p>
             <div style={styles.footerSocial}>
               {socialLinks.map((social, index) => (
-                <a 
+                <a
                   key={index}
-                  href={social.url} 
-                  target="_blank" 
+                  href={social.url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   style={styles.footerSocialLink}
                 >
@@ -2227,24 +2376,38 @@ const Portfolio = () => {
             </div>
           </div>
         </div>
-        
+
         <div style={styles.footerBottom}>
           <p>© 2024 Muluken Mesfin. All rights reserved.</p>
           <p>
-            <Coffee size={16} style={{marginRight: '5px'}} />
+            <Coffee size={16} style={{ marginRight: '5px' }} />
             Made with passion in Ethiopia
+            <button
+              onClick={() => setShowAdmin(!showAdmin)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                opacity: 0.1,
+                marginLeft: '10px',
+                padding: 0
+              }}
+              title="Admin Access"
+            >
+              <Lock size={12} />
+            </button>
           </p>
         </div>
       </footer>
 
       {/* Scroll to Top Button */}
       {scrollY > 300 && (
-        <button 
+        <button
           onClick={scrollToTop}
           style={styles.scrollToTop}
           aria-label="Scroll to top"
         >
-          <ChevronRight size={24} style={{transform: 'rotate(-90deg)'}} />
+          <ChevronRight size={24} style={{ transform: 'rotate(-90deg)' }} />
         </button>
       )}
 
@@ -2273,7 +2436,7 @@ const Portfolio = () => {
               <Crown size={48} color="#FFD700" />
               <p>You've unlocked the "Code Master" badge!</p>
             </div>
-            <button 
+            <button
               onClick={() => setShowEasterEgg(false)}
               style={styles.easterEggClose}
             >
@@ -2319,7 +2482,7 @@ const Portfolio = () => {
       </div>
 
       {/* Theme Toggle */}
-      <button 
+      <button
         onClick={() => setCurrentTheme(currentTheme === 'light' ? 'dark' : 'light')}
         style={styles.themeToggle}
         aria-label="Toggle theme"
@@ -2328,7 +2491,7 @@ const Portfolio = () => {
       </button>
 
       {/* Sound Toggle */}
-      <button 
+      <button
         onClick={() => setSoundEnabled(!soundEnabled)}
         style={styles.soundToggle}
         aria-label="Toggle sound"
@@ -2345,7 +2508,7 @@ const Portfolio = () => {
                 <h3 style={styles.imagePopupTitle}>{imagePopup.title}</h3>
                 <p style={styles.imagePopupIssuer}>{imagePopup.issuer}</p>
               </div>
-              <button 
+              <button
                 onClick={closeImagePopup}
                 style={styles.imagePopupClose}
                 aria-label="Close image popup"
@@ -2354,8 +2517,8 @@ const Portfolio = () => {
               </button>
             </div>
             <div style={styles.imagePopupContent}>
-              <img 
-                src={imagePopup.image} 
+              <img
+                src={imagePopup.image}
                 alt={imagePopup.title}
                 style={styles.imagePopupImage}
               />
@@ -2371,12 +2534,12 @@ const Portfolio = () => {
 
       {/* Mobile Frame Preview Modal */}
       {mobilePreview.isOpen && (
-        <div 
-          style={styles.mobilePreviewOverlay} 
+        <div
+          style={styles.mobilePreviewOverlay}
           onClick={(e) => {
             // Only close if clicking directly on the overlay, not on child elements
             if (e.target === e.currentTarget) {
-              setMobilePreview({...mobilePreview, isOpen: false});
+              setMobilePreview({ ...mobilePreview, isOpen: false });
             }
           }}
         >
@@ -2390,8 +2553,8 @@ const Portfolio = () => {
                   </span>
                 )}
               </div>
-              <button 
-                onClick={() => setMobilePreview({...mobilePreview, isOpen: false})}
+              <button
+                onClick={() => setMobilePreview({ ...mobilePreview, isOpen: false })}
                 style={styles.mobilePreviewClose}
                 aria-label="Close preview"
               >
@@ -2403,34 +2566,34 @@ const Portfolio = () => {
                 <div style={styles.mobileNotch}></div>
               </div>
               <div className="mobile-screen" style={styles.mobileScreen} onClick={(e) => e.stopPropagation()}>
-                <img 
-                  src={mobilePreview.images[mobilePreview.currentIndex]} 
+                <img
+                  src={mobilePreview.images[mobilePreview.currentIndex]}
                   alt={`${mobilePreview.appTitle} Preview`}
                   className="mobile-screen-image"
                   style={styles.mobileScreenImage}
                 />
-                
+
                 {/* Always show navigation if more than 1 image */}
                 {mobilePreview.images.length > 1 && (
                   <>
-                    <button 
+                    <button
                       onClick={() => setMobilePreview({
-                        ...mobilePreview, 
+                        ...mobilePreview,
                         currentIndex: mobilePreview.currentIndex > 0 ? mobilePreview.currentIndex - 1 : mobilePreview.images.length - 1
                       })}
                       className="nav-button"
-                      style={{...styles.navButton, ...styles.navButtonLeft}}
+                      style={{ ...styles.navButton, ...styles.navButtonLeft }}
                       aria-label="Previous image"
                     >
                       <ChevronLeft size={24} color="#fff" />
                     </button>
-                    <button 
+                    <button
                       onClick={() => setMobilePreview({
-                        ...mobilePreview, 
+                        ...mobilePreview,
                         currentIndex: mobilePreview.currentIndex < mobilePreview.images.length - 1 ? mobilePreview.currentIndex + 1 : 0
                       })}
                       className="nav-button"
-                      style={{...styles.navButton, ...styles.navButtonRight}}
+                      style={{ ...styles.navButton, ...styles.navButtonRight }}
                       aria-label="Next image"
                     >
                       <ChevronRight size={24} color="#fff" />
@@ -2439,7 +2602,7 @@ const Portfolio = () => {
                 )}
               </div>
               <div style={styles.mobileFrameBottom}>
-                <div style={{...styles.mobileHomeButton, backgroundColor: mobilePreview.appColor}}></div>
+                <div style={{ ...styles.mobileHomeButton, backgroundColor: mobilePreview.appColor }}></div>
               </div>
             </div>
             {/* Always show dots if more than 1 image */}
@@ -2448,7 +2611,7 @@ const Portfolio = () => {
                 {mobilePreview.images.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setMobilePreview({...mobilePreview, currentIndex: index})}
+                    onClick={() => setMobilePreview({ ...mobilePreview, currentIndex: index })}
                     className="image-dot"
                     style={{
                       ...styles.imageDot,
@@ -2463,6 +2626,44 @@ const Portfolio = () => {
           </div>
         </div>
       )}
+
+      {/* Admin Dashboard Overlay */}
+      {showAdmin && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: '#f8fafc',
+          zIndex: 2000,
+          overflowY: 'auto'
+        }}>
+          <button
+            onClick={() => setShowAdmin(false)}
+            style={{
+              position: 'fixed',
+              top: '20px',
+              right: '20px',
+              padding: '10px 20px',
+              background: '#ef4444',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              zIndex: 2001,
+              fontWeight: 'bold',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+            }}
+          >
+            Close Admin Panel ✕
+          </button>
+          <AdminDashboard />
+        </div>
+      )}
+
+      {/* AI Chatbot */}
+      <AIChatbot />
     </div>
   );
 };
@@ -2541,19 +2742,20 @@ const styles = {
     padding: '8px',
     transition: 'transform 0.3s',
   },
-  
+
   // Modern Navigation Styles
   modernNav: {
     position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backdropFilter: 'blur(25px) saturate(200%)',
+    WebkitBackdropFilter: 'blur(25px) saturate(200%)',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
     zIndex: 1000,
     padding: '16px 0',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   },
   modernNavContent: {
     maxWidth: '1200px',
@@ -2784,13 +2986,13 @@ const styles = {
     margin: 0,
   },
   hero: {
-    minHeight: '70vh',
+    minHeight: '85vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'linear-gradient(135deg, #FFF5F5 0%, #FFF 50%, #F5F5F5 100%)',
-    padding: '80px 20px 40px',
+    background: 'radial-gradient(circle at top right, #fff5f5, transparent), radial-gradient(circle at bottom left, #f1f5f9, transparent), #ffffff',
+    padding: '100px 20px 60px',
     gap: '30px',
     maxWidth: '1400px',
     margin: '0 auto',
@@ -2805,12 +3007,12 @@ const styles = {
   },
   heroPhotoContainer: {
     position: 'relative',
-    width: '220px',
-    height: '220px',
+    width: '240px',
+    height: '240px',
     borderRadius: '50%',
     overflow: 'hidden',
-    boxShadow: '0 25px 80px rgba(230, 57, 70, 0.25)',
-    border: '8px solid #fff',
+    boxShadow: '0 0 50px rgba(59, 130, 246, 0.2), 0 0 100px rgba(59, 130, 246, 0.1)',
+    border: '4px solid rgba(255, 255, 255, 0.8)',
     transition: 'all 0.3s ease',
   },
   heroPhoto: {
@@ -2848,6 +3050,7 @@ const styles = {
     width: '100%',
   },
   heroTextSection: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -2937,10 +3140,11 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    backgroundColor: '#E63946',
+    backgroundColor: '#1a1a1a',
+    background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
     color: '#fff',
     border: 'none',
-    padding: '16px 32px',
+    padding: '18px 40px',
     fontSize: '16px',
     fontWeight: '600',
     borderRadius: '50px',
@@ -3003,7 +3207,7 @@ const styles = {
     opacity: 0.8,
   },
 
-  
+
   socialLink: {
     display: 'flex',
     alignItems: 'center',
@@ -3091,14 +3295,13 @@ const styles = {
     margin: '0 auto',
   },
   projectCard: {
-    backgroundColor: '#fff',
-    borderRadius: '20px',
-    padding: '25px',
-    boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-    transition: 'all 0.3s ease',
-    border: '1px solid #f0f0f0',
+    borderRadius: '24px',
+    padding: '32px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
     position: 'relative',
     overflow: 'hidden',
+    cursor: 'pointer',
   },
   projectHeader: {
     display: 'flex',
@@ -3117,12 +3320,14 @@ const styles = {
     alignItems: 'flex-end',
   },
   projectCategory: {
-    fontSize: '12px',
-    color: '#666',
-    backgroundColor: '#f8f9fa',
-    padding: '4px 8px',
-    borderRadius: '12px',
-    fontWeight: '500',
+    fontSize: '11px',
+    color: '#3b82f6',
+    background: 'rgba(59, 130, 246, 0.1)',
+    padding: '4px 12px',
+    borderRadius: '20px',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
   },
   projectStatus: {
     fontSize: '11px',
@@ -3157,13 +3362,15 @@ const styles = {
     marginBottom: '15px',
   },
   techTag: {
-    backgroundColor: '#E63946',
-    color: '#fff',
-    padding: '4px 8px',
+    background: 'rgba(59, 130, 246, 0.1)',
+    color: '#3b82f6',
+    padding: '6px 12px',
     borderRadius: '12px',
     fontSize: '11px',
-    fontWeight: '500',
-    textTransform: 'capitalize',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    border: '1px solid rgba(59, 130, 246, 0.2)',
   },
   projectStats: {
     display: 'flex',
@@ -3343,6 +3550,7 @@ const styles = {
     justifyContent: 'center',
     zIndex: 999,
   },
+
   // App Portfolio Styles
   appPortfolio: {
     padding: '80px 20px',
@@ -3585,7 +3793,7 @@ const styles = {
     borderRadius: '8px',
     border: '1px solid #ddd',
   },
-  
+
   // Modern App Styles
   modernAppGrid: {
     display: 'grid',
@@ -3784,7 +3992,7 @@ const styles = {
     transition: 'opacity 0.3s ease',
     borderRadius: '16px',
   },
-  
+
   // Mobile Preview Modal Styles
   mobilePreviewOverlay: {
     position: 'fixed',
@@ -3904,7 +4112,7 @@ const styles = {
     borderRadius: '2px',
     backgroundColor: '#666',
   },
-  
+
   // Navigation Controls
   navButton: {
     position: 'absolute',
@@ -3929,7 +4137,7 @@ const styles = {
   navButtonRight: {
     right: '10px',
   },
-  
+
   // Image Dots
   imageDots: {
     display: 'flex',
@@ -4095,20 +4303,20 @@ const styles = {
   skillProjects: {
     fontWeight: '500',
   },
-  
+
   // Auto-Scrolling Skills Styles
   skillsScrollContainer: {
     width: '100%',
     overflow: 'hidden',
     marginTop: '40px',
   },
-  
+
   skillsRow: {
     display: 'flex',
     width: '100%',
     overflow: 'hidden',
   },
-  
+
   skillsRowContent: {
     display: 'flex',
     gap: '10px',
@@ -4116,7 +4324,7 @@ const styles = {
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
-  
+
   scrollingSkillCard: {
     minWidth: '120px',
     backgroundColor: '#fff',
@@ -4127,7 +4335,7 @@ const styles = {
     textAlign: 'center',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   },
-  
+
   skillCardHeader: {
     display: 'flex',
     flexDirection: 'column',
@@ -4135,18 +4343,18 @@ const styles = {
     gap: '4px',
     marginBottom: '8px',
   },
-  
+
   skillIcon: {
     fontSize: '20px',
   },
-  
+
   skillName: {
     fontSize: '12px',
     fontWeight: '600',
     color: '#1e293b',
     margin: 0,
   },
-  
+
   skillBar: {
     width: '100%',
     height: '4px',
@@ -4155,25 +4363,25 @@ const styles = {
     overflow: 'hidden',
     marginBottom: '6px',
   },
-  
+
   skillProgress: {
     height: '100%',
     borderRadius: '2px',
     transition: 'width 1.5s ease-in-out',
   },
-  
+
   skillMeta: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
+
   skillLevel: {
     fontSize: '10px',
     fontWeight: '600',
     color: '#1e293b',
   },
-  
+
   skillExperience: {
     fontSize: '8px',
     color: '#64748b',
@@ -4941,12 +5149,14 @@ const styles = {
     position: 'fixed',
     bottom: '100px',
     left: '20px',
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    backdropFilter: 'blur(10px)',
-    borderRadius: '15px',
-    padding: '15px',
-    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backdropFilter: 'blur(20px) saturate(180%)',
+    borderRadius: '20px',
+    padding: '16px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
     zIndex: 998,
+    border: '1px solid rgba(255, 255, 255, 0.3)',
+    transition: 'all 0.4s ease',
   },
   floatingStatsContent: {
     display: 'flex',
@@ -4965,39 +5175,41 @@ const styles = {
     position: 'fixed',
     bottom: '20px',
     right: '80px',
-    width: '50px',
-    height: '50px',
-    backgroundColor: '#fff',
-    border: '2px solid #E63946',
-    borderRadius: '50%',
-    color: '#E63946',
+    width: '46px',
+    height: '46px',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backdropFilter: 'blur(10px)',
+    borderRadius: '14px',
+    color: '#1a1a1a',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
     cursor: 'pointer',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 4px 15px rgba(230,57,70,0.2)',
-    transition: 'all 0.3s ease',
-    zIndex: 997,
+    zIndex: 999,
   },
   soundToggle: {
     position: 'fixed',
     bottom: '20px',
     right: '140px',
-    width: '50px',
-    height: '50px',
-    backgroundColor: '#fff',
-    border: '2px solid #4CAF50',
-    borderRadius: '50%',
-    color: '#4CAF50',
+    width: '46px',
+    height: '46px',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backdropFilter: 'blur(10px)',
+    borderRadius: '14px',
+    color: '#10b981',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
     cursor: 'pointer',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 4px 15px rgba(76,175,80,0.2)',
-    transition: 'all 0.3s ease',
-    zIndex: 997,
+    zIndex: 999,
   },
-  
+
   // Image Popup Modal Styles
   imagePopupOverlay: {
     position: 'fixed',
@@ -5081,8 +5293,8 @@ const styles = {
 
   // About Section Styles
   aboutSection: {
-    padding: '60px 0',
-    background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+    padding: '100px 0',
+    background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
     position: 'relative',
   },
   aboutContainer: {

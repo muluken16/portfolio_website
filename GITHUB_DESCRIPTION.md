@@ -2,7 +2,7 @@
 
 ## Short Description (for GitHub repo settings):
 ```
-Modern React portfolio showcasing full-stack development skills, mobile apps, and professional achievements. Features GitHub API integration, APK downloads, and responsive design.
+Modern React portfolio showcasing full-stack development skills, mobile apps, and professional achievements. Features an AI-powered assistant (Gemini Pro), GitHub API integration, APK downloads, and responsive design.
 ```
 
 ## Topics/Tags (for GitHub repo):
@@ -22,6 +22,9 @@ frontend
 web-development
 ui-ux
 modern-design
+ai-assistant
+google-gemini
+chatbot
 ```
 
 ## Repository Title Options:
@@ -33,7 +36,7 @@ modern-design
 
 ## About Section (160 characters max):
 ```
-Professional portfolio built with React & Vite. Features mobile app showcase, GitHub integration, certifications display, and responsive design.
+Professional portfolio built with React & Vite. Features Gemini AI chatbot, mobile app showcase, GitHub integration, and modern responsive design.
 ```
 
 ## Website URL:
